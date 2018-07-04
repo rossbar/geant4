@@ -54,9 +54,9 @@ public:
     ////////virtual void BeamOn(G4int n_event,const char* macroFile=0,G4int n_select=-1);
     virtual void InitializeGeometry();
     virtual void RunInitialization();
-    virtual void DoEventLoop(G4int n_event,const char* macroFile=0,G4int n_select=-1);
-    virtual void ProcessOneEvent(G4int i_event);
-    virtual G4Event* GenerateEvent(G4int i_event);
+    virtual void DoEventLoop(G4long n_event,const char* macroFile=0,G4long n_select=-1);
+    virtual void ProcessOneEvent(G4long i_event);
+    virtual G4Event* GenerateEvent(G4long i_event);
     //G4int NewCommands( const std::vector<G4String>& newCmdsToExecute , G4String& currentCmd );
     //Called by the MTRunManager when new UI commands are to be executed.
     //It is not assumed method is not thread-safe: i.e. should be called sequentially

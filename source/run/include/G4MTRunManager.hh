@@ -61,11 +61,11 @@ public:
 
     //Inherited methods to re-implement for MT case
     virtual void Initialize();
-    virtual void InitializeEventLoop(G4int n_event, const char* macroFile=0, G4int n_select=-1);
+    virtual void InitializeEventLoop(G4long n_event, const char* macroFile=0, G4long n_select=-1);
 
     //The following do not do anything for this runmanager
     virtual void TerminateOneEvent();
-    virtual void ProcessOneEvent(G4int i_event);
+    virtual void ProcessOneEvent(G4long i_event);
     ////virtual void TerminateEventLoop();
     virtual void ConstructScoringWorlds();
     virtual void RunTermination();
@@ -137,7 +137,7 @@ protected:
     //This function will return only when all
     //workers have finished processing events for this run.
 protected:
-    G4int numberOfEventToBeProcessed;
+    G4long numberOfEventToBeProcessed;
     virtual void TerminateWorkers();
     //Empty the workersList
 

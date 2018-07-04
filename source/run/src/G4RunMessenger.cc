@@ -375,8 +375,8 @@ void G4RunMessenger::SetNewValue(G4UIcommand * command,G4String newValue)
 {
   if( command==beamOnCmd )
   {
-    G4int nev;
-    G4int nst;
+    G4long nev;
+    G4long nst;
     const char* nv = (const char*)newValue;
     std::istringstream is(nv);
     is >> nev >> macroFileName >> nst;

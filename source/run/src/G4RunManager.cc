@@ -262,7 +262,7 @@ void G4RunManager::DeleteUserInitializations()
 
 }
 
-void G4RunManager::BeamOn(G4int n_event,const char* macroFile,G4int n_select)
+void G4RunManager::BeamOn(G4long n_event,const char* macroFile,G4long n_select)
 {
     TIMEMORY_AUTO_TIMER("");
   if(n_event<=0) { fakeRun = true; }
@@ -362,13 +362,13 @@ void G4RunManager::RunInitialization()
   }
 }
 
-void G4RunManager::DoEventLoop(G4int n_event,const char* macroFile,G4int n_select)
+void G4RunManager::DoEventLoop(G4long n_event,const char* macroFile,G4long n_select)
 {
     TIMEMORY_AUTO_TIMER("");
   InitializeEventLoop(n_event,macroFile,n_select);
 
 // Event loop
-  for(G4int i_event=0; i_event<n_event; i_event++ )
+  for(G4long i_event=0; i_event<n_event; i_event++ )
   {
     ProcessOneEvent(i_event);
     TerminateOneEvent();
@@ -379,7 +379,7 @@ void G4RunManager::DoEventLoop(G4int n_event,const char* macroFile,G4int n_selec
   if(runManagerType==sequentialRM) TerminateEventLoop();
 }
 
-void G4RunManager::InitializeEventLoop(G4int n_event,const char* macroFile,G4int n_select)
+void G4RunManager::InitializeEventLoop(G4long n_event,const char* macroFile,G4long n_select)
 {
   if(verboseLevel>0) 
   { timer->Start(); }
@@ -399,7 +399,7 @@ void G4RunManager::InitializeEventLoop(G4int n_event,const char* macroFile,G4int
   }
 }
 
-void G4RunManager::ProcessOneEvent(G4int i_event)
+void G4RunManager::ProcessOneEvent(G4long i_event)
 {
     TIMEMORY_AUTO_TIMER("");
   currentEvent = GenerateEvent(i_event);
@@ -434,7 +434,7 @@ void G4RunManager::TerminateEventLoop()
   fGeometryHasBeenDestroyed = false;
 }
 
-G4Event* G4RunManager::GenerateEvent(G4int i_event)
+G4Event* G4RunManager::GenerateEvent(G4long i_event)
 {
     TIMEMORY_AUTO_TIMER("");
   if(!userPrimaryGeneratorAction)

@@ -204,7 +204,7 @@ void G4WorkerRunManager::RunInitialization()
   numberOfEventProcessed = 0;
 }
 
-void G4WorkerRunManager::DoEventLoop(G4int n_event, const char* macroFile , G4int n_select)
+void G4WorkerRunManager::DoEventLoop(G4long n_event, const char* macroFile , G4long n_select)
 {
     TIMEMORY_AUTO_TIMER("");
     if(!userPrimaryGeneratorAction)
@@ -226,7 +226,7 @@ void G4WorkerRunManager::DoEventLoop(G4int n_event, const char* macroFile , G4in
     // Event loop
     eventLoopOnGoing = true;
 ///////    G4int i_event = workerContext->GetThreadId();
-    G4int i_event = -1;
+    G4long i_event = -1;
     nevModulo = -1;
     currEvID = -1;
 
@@ -249,7 +249,7 @@ void G4WorkerRunManager::DoEventLoop(G4int n_event, const char* macroFile , G4in
     TerminateEventLoop();
 }
 
-void G4WorkerRunManager::ProcessOneEvent(G4int i_event)
+void G4WorkerRunManager::ProcessOneEvent(G4long i_event)
 {
     TIMEMORY_AUTO_TIMER("");
   currentEvent = GenerateEvent(i_event);
@@ -262,7 +262,7 @@ void G4WorkerRunManager::ProcessOneEvent(G4int i_event)
   }
 }
 
-G4Event* G4WorkerRunManager::GenerateEvent(G4int i_event)
+G4Event* G4WorkerRunManager::GenerateEvent(G4long i_event)
 {
     TIMEMORY_AUTO_TIMER("");
   G4Event* anEvent = new G4Event(i_event);

@@ -56,8 +56,8 @@ class G4Run
 
   protected:
     G4int runID;
-    G4int numberOfEvent;
-    G4int numberOfEventToBeProcessed;
+    G4long numberOfEvent;
+    G4long numberOfEventToBeProcessed;
     G4HCtable* HCtable;
     G4DCtable* DCtable;
     G4String randomNumberStatus;
@@ -76,11 +76,11 @@ class G4Run
     inline G4int GetRunID() const
     { return runID; }
     //  Returns the run ID. Run ID is set by G4RunManager.
-    inline G4int GetNumberOfEvent() const
+    inline G4long GetNumberOfEvent() const
     { return numberOfEvent; }
     //  Returns number of events processed in this run. The number is
     // incremented at the end of each event processing.
-    inline G4int GetNumberOfEventToBeProcessed() const
+    inline G4long GetNumberOfEventToBeProcessed() const
     { return numberOfEventToBeProcessed; }
     inline const G4HCtable* GetHCtable() const
     { return HCtable; }
@@ -94,7 +94,7 @@ class G4Run
   public:
     inline void SetRunID(G4int id)
     { runID = id; }
-    inline void SetNumberOfEventToBeProcessed(G4int n_ev)
+    inline void SetNumberOfEventToBeProcessed(G4long n_ev)
     { numberOfEventToBeProcessed = n_ev; }
     inline void SetHCtable(G4HCtable* HCtbl)
     { HCtable = HCtbl; }

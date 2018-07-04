@@ -207,7 +207,7 @@ void G4MTRunManager::Initialize()
 ////{
 ////    //Nothing to do
 ////}
-void G4MTRunManager::ProcessOneEvent(G4int)
+void G4MTRunManager::ProcessOneEvent(G4long)
 {
     //Nothing to do
 }
@@ -254,7 +254,7 @@ void G4MTRunManager::CreateAndStartWorkers()
 }
 
 
-void G4MTRunManager::InitializeEventLoop(G4int n_event, const char* macroFile, G4int n_select)
+void G4MTRunManager::InitializeEventLoop(G4long n_event, const char* macroFile, G4long n_select)
 {
     TIMEMORY_AUTO_TIMER("");
   MTkernel->SetUpDecayChannels();

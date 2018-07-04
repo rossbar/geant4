@@ -157,7 +157,7 @@ public: // with description
     // bottom of the main().
 
   public: // with description
-    virtual void BeamOn(G4int n_event,const char* macroFile=0,G4int n_select=-1);
+    virtual void BeamOn(G4long n_event,const char* macroFile=0,G4long n_select=-1);
     //  This method starts an event loop of "n_event" events. The condition of Geant4
     // is examined before starting the event loop. This method must be invoked at
     // Idle state. The state will be changed to GeomClosed during the event loop and
@@ -209,7 +209,7 @@ public: // with description
 
     virtual G4bool ConfirmBeamOnCondition();
     virtual void RunInitialization();
-    virtual void DoEventLoop(G4int n_event,const char* macroFile=0,G4int n_select=-1);
+    virtual void DoEventLoop(G4long n_event,const char* macroFile=0,G4long n_select=-1);
     virtual void RunTermination();
     //  These four protected methods are invoked from BeamOn() method. These four methods
     // are invoked in this order.
@@ -225,8 +225,8 @@ public: // with description
     // object is deleted in this class. If the user uses ODBMS and wants to store the
     // G4Run class object, he/she must override this method.
 
-    virtual void InitializeEventLoop(G4int n_event,const char* macroFile=0,G4int n_select=-1);
-    virtual void ProcessOneEvent(G4int i_event);
+    virtual void InitializeEventLoop(G4long n_event,const char* macroFile=0,G4long n_select=-1);
+    virtual void ProcessOneEvent(G4long i_event);
     virtual void TerminateOneEvent();
     virtual void TerminateEventLoop();
     //  Granular virtual methods invoked from DoEventLoop() method.
@@ -234,7 +234,7 @@ public: // with description
     ///////////////////////////////////////////////////////////virtual void BuildPhysicsTables();
     //  This method is invoked from RunInitialization() to create physics tables.
 
-    virtual G4Event* GenerateEvent(G4int i_event);
+    virtual G4Event* GenerateEvent(G4long i_event);
     virtual void AnalyzeEvent(G4Event* anEvent);
     //  These two protected methods are invoked from DoEventLoop() method at the begining
     // and the end of each event processing.
@@ -306,7 +306,7 @@ public: // with description
     G4Event* currentEvent;
     std::list<G4Event*>* previousEvents;
     G4int n_perviousEventsToBeStored;
-    G4int numberOfEventToBeProcessed;
+    G4long numberOfEventToBeProcessed;
 
     G4bool storeRandomNumberStatus;
     G4int storeRandomNumberStatusToG4Event;
@@ -321,8 +321,8 @@ public: // with description
     G4int nParallelWorlds;
 
     G4String msgText;
-    G4int n_select_msg;
-    G4int numberOfEventProcessed;
+    G4long n_select_msg;
+    G4long numberOfEventProcessed;
     G4String selectMacro;
     G4bool fakeRun;
 
@@ -555,11 +555,11 @@ public: // with description
   public:
     inline G4int GetNumberOfParallelWorld() const
     { return nParallelWorlds; }
-    inline void SetNumberOfEventsToBeProcessed(G4int val)
+    inline void SetNumberOfEventsToBeProcessed(G4long val)
     { numberOfEventToBeProcessed = val; }
-    inline G4int GetNumberOfEventsToBeProcessed() const
+    inline G4long GetNumberOfEventsToBeProcessed() const
     { return numberOfEventToBeProcessed; }
-    inline G4int GetNumberOfSelectEvents() const
+    inline G4long GetNumberOfSelectEvents() const
     { return n_select_msg; }
     inline G4String GetSelectMacro() const
     { return selectMacro; }
