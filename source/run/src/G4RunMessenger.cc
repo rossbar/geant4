@@ -380,6 +380,7 @@ void G4RunMessenger::SetNewValue(G4UIcommand * command,G4String newValue)
     const char* nv = (const char*)newValue;
     std::istringstream is(nv);
     is >> nev >> macroFileName >> nst;
+//    G4cout << "\n\n FROM RUN MESSENGER: nev = " << nev << G4endl << G4endl;
     if(macroFileName=="***NULL***")
     { runManager->BeamOn(nev); }
     else

@@ -334,6 +334,8 @@ void G4RunManager::RunInitialization()
   currentRun->SetRunID(runIDCounter);
   currentRun->SetNumberOfEventToBeProcessed(numberOfEventToBeProcessed);
 
+  G4cout << "\n\nNumber of events to be processed: " << numberOfEventToBeProcessed << G4endl << G4endl;
+
   currentRun->SetDCtable(DCtable);
   G4SDManager* fSDM = G4SDManager::GetSDMpointerIfExist();
   if(fSDM)
