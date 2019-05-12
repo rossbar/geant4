@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4IonisParamElm.hh 96794 2016-05-09 10:09:30Z gcosmo $
 //
 
 // class description
@@ -90,8 +89,8 @@ private:
 
     // operators
     G4IonisParamElm& operator=(const G4IonisParamElm&) = delete;
-    G4int operator==(const G4IonisParamElm&) const = delete;
-    G4int operator!=(const G4IonisParamElm&) const = delete;
+    G4bool operator==(const G4IonisParamElm&) const = delete;
+    G4bool operator!=(const G4IonisParamElm&) const = delete;
     G4IonisParamElm(G4IonisParamElm&) = delete;
     //
     //  data members

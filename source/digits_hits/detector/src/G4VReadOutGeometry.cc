@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4VReadOutGeometry.cc 94771 2015-12-09 09:44:05Z gcosmo $
 //
 
 #include "G4VReadOutGeometry.hh"
@@ -95,10 +94,10 @@ G4VReadOutGeometry & G4VReadOutGeometry::operator=(const G4VReadOutGeometry &rig
   return *this;
 }
 
-G4int G4VReadOutGeometry::operator==(const G4VReadOutGeometry &right) const
+G4bool G4VReadOutGeometry::operator==(const G4VReadOutGeometry &right) const
 { return (this == (G4VReadOutGeometry *) &right); }
 
-G4int G4VReadOutGeometry::operator!=(const G4VReadOutGeometry &right) const
+G4bool G4VReadOutGeometry::operator!=(const G4VReadOutGeometry &right) const
 { return (this != (G4VReadOutGeometry *) &right); }
 
 void G4VReadOutGeometry::BuildROGeometry()

@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4GDMLReadStructure.cc 110680 2018-06-07 14:51:42Z gcosmo $
 //
 // class G4GDMLReadStructure Implementation
 //
@@ -374,6 +373,10 @@ PhysvolRead(const xercesc::DOMElement* const physvolElement,
 
    if (pAssembly)   // Fill assembly structure
    {
+     if (assembly)   // Case of recursive assemblies
+     {
+       pAssembly->AddPlacedAssembly(assembly, transform);
+     }
      if (!logvol) { return; }
      pAssembly->AddPlacedVolume(logvol, transform);
    }

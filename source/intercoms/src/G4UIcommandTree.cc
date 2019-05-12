@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4UIcommandTree.cc 77651 2013-11-27 08:47:55Z gcosmo $
 //
 
 #include "G4UIcommandTree.hh"
@@ -50,12 +49,12 @@ G4UIcommandTree::~G4UIcommandTree()
   { delete tree[i]; }
 }
 
-G4int G4UIcommandTree::operator==(const G4UIcommandTree &right) const
+G4bool G4UIcommandTree::operator==(const G4UIcommandTree &right) const
 {
   return ( pathName == right.GetPathName() );
 }
 
-G4int G4UIcommandTree::operator!=(const G4UIcommandTree &right) const
+G4bool G4UIcommandTree::operator!=(const G4UIcommandTree &right) const
 {
   return ( pathName != right.GetPathName() );
 }

@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4ElectronOccupancy.hh 110257 2018-05-17 14:20:12Z gcosmo $
 //
 // 
 // ------------------------------------------------------------
@@ -78,8 +77,8 @@ class G4ElectronOccupancy
  
   //- operators
      G4ElectronOccupancy & operator=(const G4ElectronOccupancy &right);
-     G4int operator==(const G4ElectronOccupancy &right) const;
-     G4int operator!=(const G4ElectronOccupancy &right) const;
+     G4bool operator==(const G4ElectronOccupancy &right) const;
+     G4bool operator!=(const G4ElectronOccupancy &right) const;
    
  public: // With Description
    // The following methods returns

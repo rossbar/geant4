@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: B5HodoscopeHit.cc 101036 2016-11-04 09:00:23Z gcosmo $
 //
 /// \file B5HodoscopeHit.cc
 /// \brief Implementation of the B5HodoscopeHit class
@@ -83,9 +82,9 @@ const B5HodoscopeHit& B5HodoscopeHit::operator=(const B5HodoscopeHit &right)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-int B5HodoscopeHit::operator==(const B5HodoscopeHit &/*right*/) const
+G4bool B5HodoscopeHit::operator==(const B5HodoscopeHit &/*right*/) const
 {
-  return 0;
+  return false;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

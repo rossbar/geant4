@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: RE05CalorimeterHit.hh 98775 2016-08-09 14:30:39Z gcosmo $
 //
 /// \file RE05/include/RE05CalorimeterHit.hh
 /// \brief Definition of the RE05CalorimeterHit class
@@ -52,7 +51,7 @@ class RE05CalorimeterHit : public G4VHit
       virtual ~RE05CalorimeterHit();
       RE05CalorimeterHit(const RE05CalorimeterHit &right);
       const RE05CalorimeterHit& operator=(const RE05CalorimeterHit &right);
-      G4int operator==(const RE05CalorimeterHit &right) const;
+      G4bool operator==(const RE05CalorimeterHit &right) const;
 
       inline void *operator new(size_t);
       inline void operator delete(void *aHit);

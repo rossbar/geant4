@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4mplIonisation.cc 106715 2017-10-20 09:39:06Z gcosmo $
 //
 // -------------------------------------------------------------------
 //
@@ -84,8 +83,21 @@ G4bool G4mplIonisation::IsApplicable(const G4ParticleDefinition&)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
+G4double G4mplIonisation::MinPrimaryEnergy(const G4ParticleDefinition* mpl,
+                                           const G4Material*,
+                                           G4double cut)
+{
+  G4double x = 0.5*cut/electron_mass_c2;
+  G4double mass  = mpl->GetPDGMass();
+  G4double ratio = electron_mass_c2/mass;
+  G4double gam   = x*ratio + std::sqrt((1. + x)*(1. + x*ratio*ratio));
+  return mass*(gam - 1.0);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+
 void G4mplIonisation::InitialiseEnergyLossProcess(const G4ParticleDefinition* p,
-						  const G4ParticleDefinition*)
+                                                  const G4ParticleDefinition*)
 {
   if(isInitialised) { return; }
 
@@ -122,8 +134,7 @@ void G4mplIonisation::PrintInfo()
 
 void G4mplIonisation::ProcessDescription(std::ostream& out) const
 {
-  out << "No description available.";
-  out << "<br>\n";
+  out << "No description available." << G4endl;
   G4VEnergyLossProcess::ProcessDescription(out);
 }
 

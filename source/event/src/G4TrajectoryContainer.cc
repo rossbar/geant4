@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4TrajectoryContainer.cc 110273 2018-05-17 14:43:43Z gcosmo $
 //
 
 #include "G4TrajectoryContainer.hh"
@@ -46,12 +45,12 @@ G4TrajectoryContainer::~G4TrajectoryContainer()
   delete vect;
 }
 
-G4int G4TrajectoryContainer::operator==(const G4TrajectoryContainer& right) const
+G4bool G4TrajectoryContainer::operator==(const G4TrajectoryContainer& right) const
 { 
   return (this==&right);
 }
 
-G4int G4TrajectoryContainer::operator!=(const G4TrajectoryContainer& right) const
+G4bool G4TrajectoryContainer::operator!=(const G4TrajectoryContainer& right) const
 {
   return (this!=&right);
 }

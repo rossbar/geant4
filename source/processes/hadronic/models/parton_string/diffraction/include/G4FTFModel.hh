@@ -24,8 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4FTFModel.hh 110870 2018-06-22 12:14:16Z gcosmo $
-// GEANT4 tag $Name:  $
 //
 // Class Description
 // Final state production code for hadron inelastic scattering above 3 GeV
@@ -76,14 +74,14 @@ class G4FTFModel : public G4VPartonStringModel {
   private:
     G4FTFModel( const G4FTFModel& right );
     const G4FTFModel& operator=( const G4FTFModel& right );
-    int operator==( const G4FTFModel& right ) const;
-    int operator!=( const G4FTFModel& right ) const;
+    G4bool operator==( const G4FTFModel& right ) const;
+    G4bool operator!=( const G4FTFModel& right ) const;
 
     void StoreInvolvedNucleon();              
     void ReggeonCascade();
     G4bool PutOnMassShell();
     G4bool ExciteParticipants();
-    G4ExcitedStringVector* BuildStrings();
+    void BuildStrings( G4ExcitedStringVector* strings );
     void GetResiduals();
       
     G4bool AdjustNucleons( G4VSplitableHadron* SelectedAntiBaryon,

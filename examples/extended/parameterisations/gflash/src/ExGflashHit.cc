@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: ExGflashHit.cc 94396 2015-11-13 13:37:16Z gcosmo $
 //
 /// \file parameterisations/gflash/src/ExGflashHit.cc
 /// \brief Implementation of the ExGflashHit class
@@ -89,9 +88,9 @@ const ExGflashHit & ExGflashHit::operator=(const ExGflashHit &right)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-int ExGflashHit::operator==(const ExGflashHit &right) const
+G4bool ExGflashHit::operator==(const ExGflashHit &right) const
 {
-// @@@@ return 0;
+// @@@@ return false;
   if ((fPos==right.fPos) &&  (fEdep == right.fEdep)) return true;
   else return false;
   

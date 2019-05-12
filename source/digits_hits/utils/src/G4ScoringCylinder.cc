@@ -24,13 +24,10 @@
 // ********************************************************************
 //
 //
-// $Id: G4ScoringCylinder.cc 99154 2016-09-07 08:06:30Z gcosmo $
 //
 
 #include "G4ScoringCylinder.hh"
 
-#include "G4PhysicalConstants.hh"
-#include "G4SystemOfUnits.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4Tubs.hh"
 #include "G4LogicalVolume.hh"
@@ -52,6 +49,8 @@
 #include "G4ScoringManager.hh"
 #include "G4StatDouble.hh"
 
+#include "G4PhysicalConstants.hh"
+#include "G4SystemOfUnits.hh"
 
 G4ScoringCylinder::G4ScoringCylinder(G4String wName)
   :G4VScoringMesh(wName)

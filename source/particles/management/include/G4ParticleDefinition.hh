@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4ParticleDefinition.hh 106143 2017-09-14 06:34:42Z gcosmo $
 //
 // 
 // ------------------------------------------------------------
@@ -205,8 +204,8 @@ class G4ParticleDefinition
       // true only if the particle is a G4MuonicAtom
       // (it means that theProcessManager is same as the one for G4GenricMuonicAtom)
 
-      G4int operator==(const G4ParticleDefinition &right) const;
-      G4int operator!=(const G4ParticleDefinition &right) const;
+      G4bool operator==(const G4ParticleDefinition &right) const;
+      G4bool operator!=(const G4ParticleDefinition &right) const;
 
   public :  // without description
 

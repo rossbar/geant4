@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4QuarkExchange.hh 66241 2012-12-13 18:34:42Z gunter $
 
 #ifndef G4QuarkExchange_h
 #define G4QuarkExchange_h 1
@@ -48,23 +47,20 @@ class G4ExcitedString;
 
 class G4QuarkExchange
 {
-
-public:
-
+  public:
 	G4QuarkExchange();
 	~G4QuarkExchange();
 
 	G4bool ExciteParticipants (G4VSplitableHadron *aPartner, G4VSplitableHadron * bPartner) const;
 
-private:
+  private:
 	G4QuarkExchange(const G4QuarkExchange &right);
 
 	G4ThreeVector GaussianPt(G4double widthSquare, G4double maxPtSquare) const;
 
 	const G4QuarkExchange & operator=(const G4QuarkExchange &right);
-	int operator==(const G4QuarkExchange &right) const;
-	int operator!=(const G4QuarkExchange &right) const;
-
+	G4bool operator==(const G4QuarkExchange &right) const;
+	G4bool operator!=(const G4QuarkExchange &right) const;
 };
 
 #endif

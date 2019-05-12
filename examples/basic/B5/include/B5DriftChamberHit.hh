@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: B5DriftChamberHit.hh 101036 2016-11-04 09:00:23Z gcosmo $
 //
 /// \file B5DriftChamberHit.hh
 /// \brief Definition of the B5DriftChamberHit class
@@ -58,7 +57,7 @@ class B5DriftChamberHit : public G4VHit
     virtual ~B5DriftChamberHit();
 
     const B5DriftChamberHit& operator=(const B5DriftChamberHit &right);
-    int operator==(const B5DriftChamberHit &right) const;
+    G4bool operator==(const B5DriftChamberHit &right) const;
     
     inline void *operator new(size_t);
     inline void operator delete(void *aHit);

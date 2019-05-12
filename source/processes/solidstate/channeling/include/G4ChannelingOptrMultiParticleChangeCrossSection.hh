@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: $
 //-----------------------------------------------------------------
 //
 // G4ChannelingOptrMultiParticleChangeCrossSection
@@ -67,7 +66,7 @@ private:
   // -----------------------------
   // -- Mandatory from base class:
   // -----------------------------
-  // -- This method returns a biasing operation that will bias the physics process occurence:
+  // -- This method returns a biasing operation that will bias the physics process occurrence:
   virtual G4VBiasingOperation*
   ProposeOccurenceBiasingOperation(const G4Track*                            track,
                                    const G4BiasingProcessInterface* callingProcess);

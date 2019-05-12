@@ -26,7 +26,6 @@
 /// \file biasing/ReverseMC01/include/RMC01DoubleWithWeightHit.hh
 /// \brief Definition of the RMC01DoubleWithWeightHit class
 //
-// $Id: RMC01DoubleWithWeightHit.hh 98774 2016-08-09 14:28:06Z gcosmo $
 //
 //////////////////////////////////////////////////////////////
 //  Class Name:           RMC01DoubleWithWeightHit
@@ -64,7 +63,7 @@ public:
  
   const RMC01DoubleWithWeightHit& operator = (const RMC01DoubleWithWeightHit &right);
  
-  int operator == (const RMC01DoubleWithWeightHit &right) const;
+  G4bool operator == (const RMC01DoubleWithWeightHit &right) const;
 
   inline void *operator new(size_t);
   inline void operator delete(void *aHit);

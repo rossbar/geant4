@@ -27,7 +27,6 @@
 // *                                                                  *
 // ********************************************************************
 //
-// $Id: G4Tet.cc 106603 2017-10-16 09:17:44Z gcosmo $
 //
 // class G4Tet
 //
@@ -59,7 +58,7 @@
 
 //#if !defined(G4GEOM_USE_UTET)
 
-const char G4Tet::CVSVers[]="$Id: G4Tet.cc 106603 2017-10-16 09:17:44Z gcosmo $";
+const char G4Tet::CVSVers[]="$Id$";
 
 #include "G4VoxelLimits.hh"
 #include "G4AffineTransform.hh"
@@ -329,15 +328,20 @@ G4bool G4Tet::CalculateExtent(const EAxis pAxis,
                                     G4double& pMin, G4double& pMax) const
 {
   G4ThreeVector bmin, bmax;
-  G4bool exist;
 
   // Check bounding box (bbox)
   //
   BoundingLimits(bmin,bmax);
   G4BoundingEnvelope bbox(bmin,bmax);
-#ifdef G4BBOX_EXTENT
-  if (true) return bbox.CalculateExtent(pAxis,pVoxelLimit,pTransform,pMin,pMax);
-#endif
+
+  // Use simple bounding-box to help in the case of complex 3D meshes
+  //
+  return bbox.CalculateExtent(pAxis,pVoxelLimit,pTransform,pMin,pMax);
+
+#if 0
+  // Precise extent computation (disabled by default for this shape)
+  //
+  G4bool exist;
   if (bbox.BoundingBoxVsVoxelLimits(pAxis,pVoxelLimit,pTransform,pMin,pMax))
   {
     return exist = (pMin < pMax) ? true : false;
@@ -360,8 +364,8 @@ G4bool G4Tet::CalculateExtent(const EAxis pAxis,
   polygons[1] = &base;
 
   G4BoundingEnvelope benv(bmin,bmax,polygons);
-  exist = benv.CalculateExtent(pAxis,pVoxelLimit,pTransform,pMin,pMax);
-  return exist;
+  return exists = benv.CalculateExtent(pAxis,pVoxelLimit,pTransform,pMin,pMax);
+#endif
 }
 
 /////////////////////////////////////////////////////////////////////////

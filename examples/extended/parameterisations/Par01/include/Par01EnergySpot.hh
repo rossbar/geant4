@@ -27,7 +27,6 @@
 /// \brief Definition of the Par01EnergySpot class
 //
 //
-// $Id: Par01EnergySpot.hh 100936 2016-11-03 11:07:41Z gcosmo $
 //
 #ifndef Par01EnergySpot_h
 #define Par01EnergySpot_h
@@ -48,7 +47,7 @@ public:
   inline void SetPosition(const G4ThreeVector& point) {fPoint = point;}
   inline G4ThreeVector GetPosition() const {return fPoint;}
 
-  G4int operator==(const Par01EnergySpot& eSpot) const
+  G4bool operator==(const Par01EnergySpot& eSpot) const
   {
     return (fEnergy==eSpot.fEnergy && fPoint==eSpot.fPoint) ? 1 : 0;
   }

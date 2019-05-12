@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4IonisParamMat.hh 106243 2017-09-26 01:56:43Z gcosmo $
 //
 
 // class description
@@ -169,8 +168,8 @@ private:
 
   // operators
   G4IonisParamMat& operator=(const G4IonisParamMat&) = delete;
-  G4int operator==(const G4IonisParamMat&) const = delete;
-  G4int operator!=(const G4IonisParamMat&) const = delete;
+  G4bool operator==(const G4IonisParamMat&) const = delete;
+  G4bool operator!=(const G4IonisParamMat&) const = delete;
   G4IonisParamMat(const G4IonisParamMat&) = delete;
 
   //

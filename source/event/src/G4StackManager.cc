@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4StackManager.cc 109173 2018-04-03 06:51:03Z gcosmo $
 //
 //
 //  Last Modification : 09/Dec/96 M.Asai
@@ -76,9 +75,9 @@ G4StackManager::~G4StackManager()
 
 const G4StackManager & G4StackManager::operator=
 (const G4StackManager &) { return *this; }
-G4int G4StackManager::operator==(const G4StackManager &) 
+G4bool G4StackManager::operator==(const G4StackManager &)
 const{ return false; }
-G4int G4StackManager::operator!=(const G4StackManager &) 
+G4bool G4StackManager::operator!=(const G4StackManager &)
 const{ return true; }
 
 #include "G4ParticleDefinition.hh"

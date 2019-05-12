@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4UIcommand.hh 108081 2017-12-21 07:53:54Z gcosmo $
 //
 //
 
@@ -64,8 +63,8 @@ class G4UIcommand
   public:
       virtual ~G4UIcommand();
 
-      G4int operator==(const G4UIcommand &right) const;
-      G4int operator!=(const G4UIcommand &right) const;
+      G4bool operator==(const G4UIcommand &right) const;
+      G4bool operator!=(const G4UIcommand &right) const;
 
       virtual G4int DoIt(G4String parameterList);
       G4String GetCurrentValue();

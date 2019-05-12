@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4VProcess.cc 105271 2017-07-18 07:35:12Z gcosmo $
 //
 // 
 // --------------------------------------------------------------
@@ -51,8 +50,8 @@
 #include "G4Log.hh"
 
 G4VProcess::G4VProcess(const G4String& aName, G4ProcessType   aType )
-                  : aProcessManager(0),
-	            pParticleChange(0),
+                  : aProcessManager(nullptr),
+	            pParticleChange(nullptr),
                     theNumberOfInteractionLengthLeft(-1.0),
                     currentInteractionLength(-1.0),
 		    theInitialNumberOfInteractionLength(-1.0),
@@ -64,7 +63,7 @@ G4VProcess::G4VProcess(const G4String& aName, G4ProcessType   aType )
                     enableAlongStepDoIt(true),
                     enablePostStepDoIt(true),
                     verboseLevel(0),
-                    masterProcessShadow(0)
+                    masterProcessShadow(nullptr)
 
 {
   pParticleChange = &aParticleChange;
@@ -75,8 +74,8 @@ G4VProcess::~G4VProcess()
 }
 
 G4VProcess::G4VProcess(const G4VProcess& right)
-          : aProcessManager(0),
-	    pParticleChange(0),
+          : aProcessManager(nullptr),
+	    pParticleChange(nullptr),
             theNumberOfInteractionLengthLeft(-1.0),
             currentInteractionLength(-1.0),
 	    theInitialNumberOfInteractionLength(-1.0),
@@ -166,12 +165,12 @@ G4VProcess & G4VProcess::operator=(const G4VProcess &)
   return *this;
 }
 
-G4int G4VProcess::operator==(const G4VProcess &right) const
+G4bool G4VProcess::operator==(const G4VProcess &right) const
 {
   return (this == &right);
 }
 
-G4int G4VProcess::operator!=(const G4VProcess &right) const
+G4bool G4VProcess::operator!=(const G4VProcess &right) const
 {
   return (this !=  &right);
 }

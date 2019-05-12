@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4NistMaterialBuilder.hh 97248 2016-05-30 15:00:11Z gcosmo $
 
 #ifndef G4NistMaterialBuilder_h
 #define G4NistMaterialBuilder_h 1
@@ -174,8 +173,7 @@ private:
 		   G4double pot=0.0, G4int ncomp=1,
 		   G4State=kStateSolid, G4bool stp = true);
 
-  void AddGas(const G4String& nameMat, G4double t=NTP_Temperature,
-                                       G4double p=CLHEP::STP_Pressure);
+  void AddGas(const G4String& nameMat, G4double T, G4double P);
 
   void AddElementByWeightFraction(G4int Z, G4double);
   void AddElementByAtomCount     (G4int Z, G4int);

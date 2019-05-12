@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4ParticleDefinition.cc 110257 2018-05-17 14:20:12Z gcosmo $
 //
 // 
 // --------------------------------------------------------------
@@ -230,12 +229,12 @@ const G4ParticleDefinition & G4ParticleDefinition::operator=(const G4ParticleDef
   return *this;
 }
 
-G4int G4ParticleDefinition::operator==(const G4ParticleDefinition &right) const
+G4bool G4ParticleDefinition::operator==(const G4ParticleDefinition &right) const
 {
   return (this->theParticleName == right.theParticleName);
 }
 
-G4int G4ParticleDefinition::operator!=(const G4ParticleDefinition &right) const
+G4bool G4ParticleDefinition::operator!=(const G4ParticleDefinition &right) const
 {
   return (this->theParticleName != right.theParticleName);
 }
@@ -439,7 +438,7 @@ void G4ParticleDefinition::SetParticleDefinitionID(G4int id)
   if(id<0)
   {
     g4particleDefinitionInstanceID = subInstanceManager.CreateSubInstance(); 
-    G4MT_pmanager = 0;
+    G4MT_pmanager = nullptr;
   }
   else
   {

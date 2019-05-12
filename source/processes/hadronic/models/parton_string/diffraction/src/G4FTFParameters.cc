@@ -24,8 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4FTFParameters.cc 109066 2018-03-23 12:59:45Z gcosmo $
-// GEANT4 tag $Name:  $
 //
 
 #include <utility>                                        
@@ -119,11 +117,13 @@ class G4FTFSettingDefaultHDP
     //
     HDP.SetDefault( "FTF_BARYON_DELTA_PROB_QEXCHG", 0. );
     HDP.SetDefault( "FTF_BARYON_PROB_SAME_QEXCHG", 0. );
-    HDP.SetDefault( "FTF_BARYON_DIFF_M_PROJ", 1.16, 1.16, 3. );
-    HDP.SetDefault( "FTF_BARYON_NONDIFF_M_PROJ", 1.16, 1.16, 3. );
-    HDP.SetDefault( "FTF_BARYON_DIFF_M_TGT", 1.16, 1.16, 3. );
-    HDP.SetDefault( "FTF_BARYON_NONDIFF_M_TGT", 1.16, 1.16, 3. );
-    HDP.SetDefault( "FTF_BARYON_AVRG_PT2", 0.3, 0.08, 1. );
+    HDP.SetDefault( "FTF_BARYON_DIFF_M_PROJ", 1.16, 1.16, 3. );    // it's supposed to be in GeV but do NOT do (*CLHEP::GeV) 
+                                                                   // because it'll be done in the G4FTFParameters::SetProjMinDiffMass
+    HDP.SetDefault( "FTF_BARYON_NONDIFF_M_PROJ", 1.16, 1.16, 3. ); // do NOT (*CLHEP::GeV) - same as above
+    HDP.SetDefault( "FTF_BARYON_DIFF_M_TGT", 1.16, 1.16, 3. );     // do NOT (*CLHEP::GeV) - same as above
+    HDP.SetDefault( "FTF_BARYON_NONDIFF_M_TGT", 1.16, 1.16, 3. );  // do NOT (*CLHEP::GeV) - same as above
+    HDP.SetDefault( "FTF_BARYON_AVRG_PT2", 0.3, 0.08, 1. );        // do NOT (*CLHEP::GeV) - same as above
+
     //
     // JVY, Oct. 6, 2017: Per Alberto R., keep these two settings fixed (for now)
     //
@@ -182,18 +182,19 @@ G4FTFParamCollection::G4FTFParamCollection()
   HDP.DeveloperGet( "FTF_PT2_NUCDESTR_P3", fPt2NuclearDestructP3 ); 
   HDP.DeveloperGet( "FTF_PT2_NUCDESTR_P4", fPt2NuclearDestructP4 ); 
   //
-  // fNuclearProjDestructP1 = 1.; // in 10.2.p03 & 10.3.ref04-ref07/08/09 it's 0.00481; in 10.3.p01/p02/p03, etc. it's be 1. (fixed)
-  // fNuclearProjDestructP1_NBRNDEP = false;
-  // fNuclearTgtDestructP1 = 1.;  // in 10.2.p03 & 10.3.ref04-ref07/08/09 it's 0.00481; in 10.3.p01/p02/p03, etc. it's be 1. (fixed)
-  // fNuclearTgtDestructP1_ADEP = false;
+  // we keep these parameters fixed, that's why they're defined here explicitly
+  // rather than being picked up from HDP
+  //
   fNuclearProjDestructP2 = 4.0;
   fNuclearProjDestructP3 = 2.1;
-  // fNuclearTgtDestructP2 = 4.0;
-  // fNuclearTgtDestructP3 = 2.1;
-  // fPt2NuclearDestructP1 = 0.035;
-  // fPt2NuclearDestructP2 = 0.04;
-  // fPt2NuclearDestructP3 = 4.0;
-  // fPt2NuclearDestructP4 = 2.5; 
+
+  //
+  // there are the default settings
+  // they may be overriden by values from HDP later on 
+  // (e.g. in G4FTFParamCollBaryonProj(), etc.)
+  //
+  fProjDiffDissociation = false;
+  fTgtDiffDissociation = false;
 }
 
 void G4FTFParamCollection::Reset()
@@ -277,7 +278,9 @@ G4FTFParamCollBaryonProj::G4FTFParamCollBaryonProj()
   //
   // Proc=0 --> Qexchg w/o excitation
   //
-  /* As of Oct. 31, 2017 keep these fixed
+  /* // As of Oct. 31, 2017 keep these fixed; 
+     // this is why we keep this code block commented, and
+     // set the parameters explicitly below rather than picking up from HDP
   HDP.DeveloperGet( "FTF_BARYON_PROC0_A1",   fProc0A1 );
   HDP.DeveloperGet( "FTF_BARYON_PROC0_B1",   fProc0B1 );
   HDP.DeveloperGet( "FTF_BARYON_PROC0_A2",   fProc0A2 ); 
@@ -297,7 +300,9 @@ G4FTFParamCollBaryonProj::G4FTFParamCollBaryonProj()
   //
   // Proc=1 --> Qexchg w/excitation
   //
-  /* As of Oct. 31, 2017 keep these fixed
+  /* // As of Oct. 31, 2017 keep these fixed
+     // this is why we keep this code block commented,
+     // and set the parameters explicitly below rather than picking up from HDP
   HDP.DeveloperGet( "FTF_BARYON_PROC1_A1",   fProc1A1 );
   HDP.DeveloperGet( "FTF_BARYON_PROC1_B1",   fProc1B1 );
   HDP.DeveloperGet( "FTF_BARYON_PROC1_A2",   fProc1A2 ); 
@@ -327,7 +332,9 @@ G4FTFParamCollBaryonProj::G4FTFParamCollBaryonProj()
   //
   // Proc=4 --> Qexchg "w/additional multiplier" in excitation 
   //
-  /* As of Oct. 31, 2017 keep these fixed
+  /* // As of Oct. 31, 2017 keep these fixed
+     // this is why we keep this code block commented out,
+     // and set the parameters explicitly below rather than picking up from HDP
   HDP.DeveloperGet( "FTF_BARYON_PROC4_A1",   fProc4A1 );
   HDP.DeveloperGet( "FTF_BARYON_PROC4_B1",   fProc4B1 );
   HDP.DeveloperGet( "FTF_BARYON_PROC4_A2",   fProc4A2 ); 
@@ -354,15 +361,6 @@ G4FTFParamCollBaryonProj::G4FTFParamCollBaryonProj()
   HDP.DeveloperGet( "FTF_BARYON_NONDIFF_M_TGT", fTgtMinNonDiffMass );
   HDP.DeveloperGet( "FTF_BARYON_AVRG_PT2", fAveragePt2 );
   //
-  // fDeltaProbAtQuarkExchange = 0.;  
-  // fProbOfSameQuarkExchange  = 0.;
-  // fProjMinDiffMass          = 1.16; // it's supposed to be in GeV but do NOT do (*CLHEP::GeV) 
-                                       // because it'll be done in the G4FTFParameters::SetProjMinDiffMass
-  // fProjMinNonDiffMass       = 1.16; // do NOT (*CLHEP::GeV) - same as above
-  // fTgtMinDiffMass           = 1.16; // do NOT (*CLHEP::GeV) - same as above
-  // fTgtMinNonDiffMass        = 1.16; // do NOT (*CLHEP::GeV) - same as above
-  // fAveragePt2               = 0.15;  //  do NOT (*CLHEP::GeV*CLHEP::GeV) 
-  //
   // JVY - Per Alberto R., we're curretly keeping these two settings fixed,
   // thus they're defined here explicitly, rather than via HDP
   //
@@ -382,11 +380,7 @@ G4FTFParamCollBaryonProj::G4FTFParamCollBaryonProj()
   HDP.DeveloperGet( "FTF_BARYON_EXCI_E_PER_WNDNUCLN", fExciEnergyPerWoundedNucleon );
   HDP.DeveloperGet( "FTF_BARYON_NUCDESTR_DOF", fDofNuclearDestruct );
   //
-  // fR2ofNuclearDestruct         = 1.5 * CLHEP::fermi*CLHEP::fermi;
-  // fExciEnergyPerWoundedNucleon = 40. * CLHEP::MeV;
-  // fDofNuclearDestruct          = 0.3;
-  // 
-  // NOTE-1: this parameter has changed from 1. to 9. between 10.2 and 10.3.ref07 !!!
+  // NOTE-1: this parameter (below) has changed from 1. to 9. between 10.2 and 10.3.ref07 !!!
   //         ... then it went back to 1. for the 10.4-candidate... 
   // NOTE-2: this is a "technical" parameter, it should not be changed; this is why
   //         it is defined explicitly rather than via HDP
@@ -475,7 +469,6 @@ void G4FTFParameters::Reset()
 void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle, 
                                           G4int theA, G4int theZ, G4double PlabPerParticle ) 
 {
-
   Reset();
 
   G4int    ProjectilePDGcode    = particle->GetPDGEncoding();
@@ -529,20 +522,6 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
 
   TargetMass     /= GeV; TargetMass2     /= (GeV*GeV);
   ProjectileMass /= GeV; ProjectileMass2 /= (GeV*GeV);
-
-  /* JYV, Oct. 31, 2017: Keep it in the ctor
-
-  // Andrea Dotti (13Jan2013):
-  // The following lines are changed for G4MT. Originally the code was:
-  //   static G4ChipsComponentXS* _instance = new G4ChipsComponentXS();  // Witek Pokorski
-  // Note the code could go back at original if _instance could be shared among threads
-  if ( ! chipsComponentXSisInitialized ) {
-    chipsComponentXSisInitialized = true;
-    chipsComponentXSinstance = new G4ChipsComponentXS();
-  }
-  G4ChipsComponentXS* _instance = chipsComponentXSinstance;
-  FTFxsManager = _instance;
-  */
 
   Plab /= GeV;
   G4double Xftf = 0.0;
@@ -855,10 +834,10 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
   // Interactions with elastic and inelastic collisions
   SetProbabilityOfElasticScatt( Xtotal, Xelastic );
 
-//G4cout<<"in PARAMS ProbabilityOfElasticScatt "<<GetProbabilityOfElasticScatt()<<G4endl; // Uzhi
-//SetProbabilityOfElasticScatt(0. * GetProbabilityOfElasticScatt());
-//G4cout<<"in PARAMS ProbabilityOfElasticScatt "<<GetProbabilityOfElasticScatt()<<G4endl;
-//{G4int Uzhi; G4cin>>Uzhi;}
+  //G4cout<<"in PARAMS ProbabilityOfElasticScatt "<<GetProbabilityOfElasticScatt()<<G4endl;
+  //SetProbabilityOfElasticScatt(0. * GetProbabilityOfElasticScatt());
+  //G4cout<<"in PARAMS ProbabilityOfElasticScatt "<<GetProbabilityOfElasticScatt()<<G4endl;
+  //{G4int Uzhi; G4cin>>Uzhi;}
 
   SetRadiusOfHNinteractions2( Xtotal/pi/10.0 );
   if ( Xtotal - Xelastic == 0.0 ) {
@@ -911,7 +890,7 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
 		      fParCollBaryonProj.GetProc1Atop(),     
 		      fParCollBaryonProj.GetProc1Ymin() );   // Qexchange with Exc.
     // ---> end update
-    if( Xinel > 0.) {
+    if ( Xinel > 0.) {
       SetParams( 2, 6.0/Xinel, 0.0 ,-6.0/Xinel*16.28, 3.0 , 0.0, 0.0  ,     0.93);// Projectile diffraction
       SetParams( 3, 6.0/Xinel, 0.0 ,-6.0/Xinel*16.28, 3.0 , 0.0, 0.0  ,     0.93);// Target diffraction
       /* original hadr-string-diff-V10-03-07 
@@ -932,36 +911,19 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
       SetParams( 4, 0.0, 0.0 ,0.0, 0.0 , 0.0, 0.0  ,     0.0);
     }
 
-//G4cout<<"fParCollBaryonProj.IsProjDiffDissociation() "<<fParCollBaryonProj.IsProjDiffDissociation()<<G4endl;
-//G4cout<<"fParCollBaryonProj.IsTgtDiffDissociation()  "<<fParCollBaryonProj.IsTgtDiffDissociation() <<G4endl;
-//{G4int Uzhi; G4cin>>Uzhi;}
+    //G4cout<<"fParCollBaryonProj.IsProjDiffDissociation() "<<fParCollBaryonProj.IsProjDiffDissociation()<<G4endl;
+    //G4cout<<"fParCollBaryonProj.IsTgtDiffDissociation()  "<<fParCollBaryonProj.IsTgtDiffDissociation() <<G4endl;
+    //{G4int Uzhi; G4cin>>Uzhi;}
 
-//    if ( AbsProjectileBaryonNumber > 1  ||  NumberOfTargetNucleons > 1 ) {
-    if ( AbsProjectileBaryonNumber > 10  ||  NumberOfTargetNucleons > 10 ) {                          // Uzhi Dec. 2017 12 -> 10
+    //if ( AbsProjectileBaryonNumber > 1  ||  NumberOfTargetNucleons > 1 ) {
+    if ( AbsProjectileBaryonNumber > 10  ||  NumberOfTargetNucleons > 10 ) {
       // It is not decided what to do with diffraction dissociation in Had-Nucl and Nucl-Nucl interactions
-//
       if ( ! fParCollBaryonProj.IsProjDiffDissociation() )
          SetParams( 2,       0.0, 0.0 ,           0.0  , 0.0 , 0.0, 0.0   , -100.0  );  // Projectile diffraction
       if ( ! fParCollBaryonProj.IsTgtDiffDissociation() )
          SetParams( 3,       0.0, 0.0 ,           0.0  , 0.0 , 0.0, 0.0   , -100.0  );  // Target diffraction
-//
     }
 
-    /* original hadr-string-diff-V10-03-07
-    SetDeltaProbAtQuarkExchange( 0.0 );
-    if ( NumberOfTargetNucleons > 26 ) {
-      SetProbOfSameQuarkExchange( 1.0);
-    } else {
-      SetProbOfSameQuarkExchange( 0.0 );
-    }
-    SetProjMinDiffMass( 1.16 );     // GeV 
-    SetProjMinNonDiffMass( 1.16 );  // GeV 
-    SetTarMinDiffMass( 1.16 );      // GeV
-    SetTarMinNonDiffMass( 1.16 );   // GeV 
-    SetAveragePt2( 0.15 );          // GeV^2
-    SetProbLogDistrPrD( 0.3 );      // Before it was: 0.5
-    SetProbLogDistr(0.3 );          // Before it was: 0.5
-    */
     // ---> JVY - update
 
     SetDeltaProbAtQuarkExchange( fParCollBaryonProj.GetDeltaProbAtQuarkExchange() );
@@ -979,12 +941,12 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
     SetProbLogDistr( fParCollBaryonProj.GetProbLogDistr() ); 
     // ---> end update 
 
-  } else if( ProjectilePDGcode < -1000 ) {  // Projectile is anti_baryon
+  } else if ( ProjectilePDGcode < -1000 ) {  // Projectile is anti_baryon
 
     //        Proc#   A1      B1            A2       B2   A3   Atop       Ymin
     SetParams( 0,      0.0 , 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,  1000.0  );  // Qexchange without Exc. 
     SetParams( 1,      0.0 , 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,  1000.0  );  // Qexchange with    Exc.
-    if( Xinel > 0.) {
+    if ( Xinel > 0.) {
       SetParams( 2, 6.0/Xinel, 0.0 ,-6.0/Xinel*16.28, 3.0 , 0.0, 0.0  ,     0.93);  // Projectile diffraction
       SetParams( 3, 6.0/Xinel, 0.0 ,-6.0/Xinel*16.28, 3.0 , 0.0, 0.0  ,     0.93);  // Target diffraction
       SetParams( 4,       1.0, 0.0 ,             0.0, 0.0 , 0.0, 0.0  ,    0.93 );  // Qexchange with    Exc. Additional multiply
@@ -994,9 +956,9 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
       SetParams( 4, 0.0, 0.0 ,0.0, 0.0 , 0.0, 0.0  ,     0.0);
     }
 
-    if ( AbsProjectileBaryonNumber > 10  ||  NumberOfTargetNucleons > 10 ) {   // Uzhi Dec. 2017
+    if ( AbsProjectileBaryonNumber > 10  ||  NumberOfTargetNucleons > 10 ) {
       SetParams( 2,      0.0 , 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,  -100.0  );  // Projectile diffraction
-      SetParams( 3,      0.0 , 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,  -100.0  );  // Target diffraction  Uzhi Dec. 2017
+      SetParams( 3,      0.0 , 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,  -100.0  );  // Target diffraction
     }
 
     SetDeltaProbAtQuarkExchange( 0.0 );
@@ -1012,25 +974,25 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
   } else if ( ProjectileabsPDGcode == 211  ||  ProjectilePDGcode ==  111 ) {  // Projectile is Pion 
 
     //        Proc#   A1      B1            A2       B2   A3   Atop       Ymin
-    SetParams( 0,  150.0,    1.8 ,       -247.3,     2.3,    0.,   1. ,       2.3 );  // Uzhi July 2017 
+    SetParams( 0,  150.0,    1.8 ,       -247.3,     2.3,    0.,   1. ,       2.3 );
     SetParams( 1,   5.77,    0.6 ,        -5.77,     0.8,    0.,   0. ,       0.0 );
     SetParams( 2,   2.27,    0.5 ,     -98052.0,     4.0,    0.,   0. ,       3.0 ); 
     SetParams( 3,    7.0,    0.9,        -85.28,     1.9,  0.08,   0. ,       2.2 );
     SetParams( 4,    1.0,    0.0 ,       -11.02,     1.0,   0.0,   0. ,       2.4 );  // Qexchange with    Exc. Additional multiply
 
-    if ( AbsProjectileBaryonNumber > 10  ||  NumberOfTargetNucleons > 10 ) {         // Uzhi Dec. 2017
+    if ( AbsProjectileBaryonNumber > 10  ||  NumberOfTargetNucleons > 10 ) {
       SetParams( 2,      0.0 , 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,  -100.0  );  // Projectile diffraction
-      SetParams( 3,      0.0 , 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,  -100.0  );  // Target diffraction      Uzhi Dec. 2017-
+      SetParams( 3,      0.0 , 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,  -100.0  );  // Target diffraction
     }
 
-    SetDeltaProbAtQuarkExchange( 0.56 );  // (0.35)
-    SetProjMinDiffMass( 1.0 );            // (0.5)  // GeV   Uzhi July 2017   
-    SetProjMinNonDiffMass( 1.0 );         // (0.5)  // GeV   Uzhi July 2017 
-    SetTarMinDiffMass( 1.16 );                      // GeV
-    SetTarMinNonDiffMass( 1.16 );                   // GeV
-    SetAveragePt2( 0.3 );                           // GeV^2 Uzhi July 2017
-    SetProbLogDistrPrD( 0.55 );                         //   Uzhi July 2017
-    SetProbLogDistr( 0.55 );                            //   Uzhi July 2017
+    SetDeltaProbAtQuarkExchange( 0.56 );
+    SetProjMinDiffMass( 1.0 );            // GeV
+    SetProjMinNonDiffMass( 1.0 );         // GeV 
+    SetTarMinDiffMass( 1.16 );            // GeV
+    SetTarMinNonDiffMass( 1.16 );         // GeV
+    SetAveragePt2( 0.3 );                 // GeV^2
+    SetProbLogDistrPrD( 0.55 );
+    SetProbLogDistr( 0.55 );
 
   } else if ( ProjectileabsPDGcode == 321  ||  ProjectileabsPDGcode == 311  || 
               ProjectilePDGcode == 130     ||  ProjectilePDGcode == 310 ) {  // Projectile is Kaon
@@ -1042,26 +1004,26 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
     SetParams( 3,      1.09, 0.5 ,          -8.88 , 2.  ,0.05, 0.0  ,     1.40 );  // Target diffraction
     SetParams( 4,       1.0, 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,     0.93 );  // Qexchange with    Exc. Additional multiply
 
-    if ( AbsProjectileBaryonNumber > 10  ||  NumberOfTargetNucleons > 10 ) {     // Uzhi Dec. 2017
+    if ( AbsProjectileBaryonNumber > 10  ||  NumberOfTargetNucleons > 10 ) {
       SetParams( 2,      0.0 , 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,  -100.0  );  // Projectile diffraction
-      SetParams( 3,      0.0 , 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,  -100.0  );  // Target diffraction // Uzhi Dec. 2017
+      SetParams( 3,      0.0 , 0.0 ,           0.0  , 0.0 , 0.0, 0.0  ,  -100.0  );  // Target diffraction
     }
 
     SetDeltaProbAtQuarkExchange( 0.6 );
-    SetProjMinDiffMass( 0.7 );     // (1.4) // (0.7) // GeV 
-    SetProjMinNonDiffMass( 0.7 );  // (1.4) // (0.7) // GeV 
-    SetTarMinDiffMass( 1.16 );                       // GeV
-    SetTarMinNonDiffMass( 1.16 );                    // GeV
-    SetAveragePt2( 0.3 );                            // GeV^2 // Uzhi Dec. 2017
-    SetProbLogDistrPrD( 0.55 );                               // Uzhi Dec. 2017
-    SetProbLogDistr( 0.55 );                                  // Uzhi Dec. 2017
+    SetProjMinDiffMass( 0.7 );     // GeV 
+    SetProjMinNonDiffMass( 0.7 );  // GeV 
+    SetTarMinDiffMass( 1.16 );     // GeV
+    SetTarMinNonDiffMass( 1.16 );  // GeV
+    SetAveragePt2( 0.3 );          // GeV^2
+    SetProbLogDistrPrD( 0.55 );
+    SetProbLogDistr( 0.55 );
 
-   } else {  // Projectile is undefined, Nucleon assumed
+  } else {  // Projectile is undefined, Nucleon assumed
 
     //        Proc#   A1      B1            A2       B2   A3   Atop       Ymin
-    SetParams( 0,     13.71, 1.75,          -30.69, 3.0 , 0.0, 1.0  ,     0.93 );   // Qexchange without Exc.  // Uzhi Dec. 2017
+    SetParams( 0,     13.71, 1.75,          -30.69, 3.0 , 0.0, 1.0  ,     0.93 );   // Qexchange without Exc.
     SetParams( 1,      25.0, 1.0,          -50.34,  1.5 , 0.0, 0.0  ,     1.4 );  // Qexchange with    Exc.
-    if( Xinel > 0.) {
+    if ( Xinel > 0.) {
       SetParams( 2, 6.0/Xinel, 0.0 ,-6.0/Xinel*16.28, 3.0 , 0.0, 0.0  ,   0.93);  // Projectile diffraction
       SetParams( 3, 6.0/Xinel, 0.0 ,-6.0/Xinel*16.28, 3.0 , 0.0, 0.0  ,   0.93);  // Target diffraction
       SetParams( 4,       1.0, 0.0 ,          -2.01 , 0.5 , 0.0, 0.0  ,   1.4 );  // Qexchange with    Exc. Additional multiply
@@ -1070,25 +1032,25 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
       SetParams( 3, 0.0, 0.0 ,0.0, 0.0 , 0.0, 0.0  ,     0.0);
       SetParams( 4, 0.0, 0.0 ,0.0, 0.0 , 0.0, 0.0  ,     0.0);
     }
-    if ( AbsProjectileBaryonNumber > 10  ||  NumberOfTargetNucleons > 10 ) {         // Uzhi Dec. 2017 12 -> 10
+    if ( AbsProjectileBaryonNumber > 10  ||  NumberOfTargetNucleons > 10 ) {
       SetParams( 2,      0.0 , 0.0 ,            0.0 , 0.0 , 0.0, 0.0  ,  -100.0  );  // Projectile diffraction
-      SetParams( 3,      0.0 , 0.0 ,            0.0 , 0.0 , 0.0, 0.0  ,  -100.0  );  // Target diffraction   // Uzhi Dec. 2017
+      SetParams( 3,      0.0 , 0.0 ,            0.0 , 0.0 , 0.0, 0.0  ,  -100.0  );  // Target diffraction
     }
-    SetDeltaProbAtQuarkExchange( 0.0 );              // 7 June 2011
+    SetDeltaProbAtQuarkExchange( 0.0 );
     SetProbOfSameQuarkExchange( 0.0 );
     SetProjMinDiffMass( ProjectileMass + 0.22 );     // GeV 
     SetProjMinNonDiffMass( ProjectileMass + 0.22 );  // GeV
     SetTarMinDiffMass( TargetMass + 0.22 );          // GeV
     SetTarMinNonDiffMass( TargetMass + 0.22 );       // GeV
-    SetAveragePt2( 0.3 );                            // GeV^2  // Uzhi Dec. 2017
-    SetProbLogDistrPrD( 0.55 );                                // Uzhi Dec. 2017
-    SetProbLogDistr( 0.55 );                                   // Uzhi Dec. 2017
+    SetAveragePt2( 0.3 );                            // GeV^2
+    SetProbLogDistrPrD( 0.55 );
+    SetProbLogDistr( 0.55 );
 
   }
 
   // Set parameters of a string kink
   //  SetPt2Kink( 6.0*GeV*GeV );
-  SetPt2Kink( 0.0*GeV*GeV );  // Uzhi Oct 2014 to switch off kinky strings
+  SetPt2Kink( 0.0*GeV*GeV );  // To switch off kinky strings
   G4double Puubar( 1.0/3.0 ), Pddbar( 1.0/3.0 ), Pssbar( 1.0/3.0 );  // SU(3) symmetry
   //G4double Puubar( 0.41 ), Pddbar( 0.41 ), Pssbar( 0.18 );  // Broken SU(3) symmetry
   SetQuarkProbabilitiesAtGluonSplitUp( Puubar, Pddbar, Pssbar );
@@ -1096,8 +1058,8 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
   // Set parameters of nuclear destruction
   if ( ProjectileabsPDGcode < 1000 ) {  // Meson projectile
     SetMaxNumberOfCollisions( Plab, 2.0 );  //  3.0 )
-//    SetCofNuclearDestruction( 1.0*                                                                  // AR-18May2016
-    SetCofNuclearDestruction( 0.00481*G4double(NumberOfTargetNucleons)*         // Uzhi 3.05.2015   // Uzhi Dec. 2017
+    //SetCofNuclearDestruction( 1.0*
+    SetCofNuclearDestruction( 0.00481*G4double(NumberOfTargetNucleons)*
             G4Exp( 4.0*(Ylab - 2.1) )/( 1.0 + G4Exp( 4.0*(Ylab - 2.1) ) ) );
     SetR2ofNuclearDestruction( 1.5*fermi*fermi );
     SetDofNuclearDestruction( 0.3 );
@@ -1107,8 +1069,8 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
     SetExcitationEnergyPerWoundedNucleon( 40.0*MeV );
   } else if ( ProjectilePDGcode < -1000 ) {  // for anti-baryon projectile
     SetMaxNumberOfCollisions( Plab, 2.0 );  // 3.0 ) 
-//    SetCofNuclearDestruction( 1.0*                                                                   // AR-18May2016
-    SetCofNuclearDestruction( 0.00481*G4double(NumberOfTargetNucleons)*             // Uzhi 3.05.2015  // Uzhi Dec. 2017
+    //SetCofNuclearDestruction( 1.0*
+    SetCofNuclearDestruction( 0.00481*G4double(NumberOfTargetNucleons)*
            G4Exp( 4.0*(Ylab - 2.1) )/( 1.0 + G4Exp( 4.0*(Ylab - 2.1) ) ) );
     SetR2ofNuclearDestruction( 1.5*fermi*fermi );
     SetDofNuclearDestruction( 0.3 );
@@ -1132,11 +1094,11 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
     SetMaxNumberOfCollisions( Plab, 2.0 ); // 3.0 )
 
     /* original hadr-string-diff-V10-03-07
-    //AR-18May2016  SetCofNuclearDestructionPr( 0.00481*G4double(AbsProjectileBaryonNumber)*           // Uzhi 3.05.2015
-    SetCofNuclearDestructionPr( 1.0*                                                                   // AR-18May2016  
+    //SetCofNuclearDestructionPr( 0.00481*G4double(AbsProjectileBaryonNumber)*
+    SetCofNuclearDestructionPr( 1.0*  
             G4Exp( 4.0*(Ylab - 2.1) )/( 1.0 + G4Exp( 4.0*(Ylab - 2.1) ) ) );
-    //AR-18May2016  SetCofNuclearDestruction(   0.00481*G4double(NumberOfTargetNucleons)*             // Uzhi 3.05.2015
-    SetCofNuclearDestruction(   1.0*                                                                  // AR-18May2016
+    //SetCofNuclearDestruction(   0.00481*G4double(NumberOfTargetNucleons)*
+    SetCofNuclearDestruction(   1.0*
             G4Exp( 4.0*(Ylab - 2.1) )/( 1.0 + G4Exp( 4.0*(Ylab - 2.1) ) ) );
     SetR2ofNuclearDestruction( 1.5*fermi*fermi );
     SetDofNuclearDestruction( 0.3 );
@@ -1220,25 +1182,25 @@ void G4FTFParameters::InitForInteraction( const G4ParticleDefinition* particle,
   //SetExcitationEnergyPerWoundedNucleon(0.);//( 30.0*MeV );            // (75.0*MeV) 
   //SetDofNuclearDestruction(0.);//( 0.2 ); //0.4                       // 0.3 0.5
 
-/*    Uzhi Nov. 20
-//SetAveragePt2(0.1);
-SetCofNuclearDestructionPr(0.);
-SetCofNuclearDestruction(0.);//( 0.5 );                           // (0.25)             
-//SetExcitationEnergyPerWoundedNucleon(0.);//( 30.0*MeV );                    // (75.0*MeV) 
-SetDofNuclearDestruction(0.);//( 0.2 ); //0.4                                     // 0.3 0.5
-SetPt2ofNuclearDestruction(0.);//(2.*0.075*GeV*GeV); //( 0.3*GeV*GeV ); // (0.168*GeV*GeV) 
-*/
+  /*
+  //SetAveragePt2(0.1);
+  SetCofNuclearDestructionPr(0.);
+  SetCofNuclearDestruction(0.);//( 0.5 );                           // (0.25)             
+  //SetExcitationEnergyPerWoundedNucleon(0.);//( 30.0*MeV );                    // (75.0*MeV) 
+  SetDofNuclearDestruction(0.);//( 0.2 ); //0.4                                     // 0.3 0.5
+  SetPt2ofNuclearDestruction(0.);//(2.*0.075*GeV*GeV); //( 0.3*GeV*GeV ); // (0.168*GeV*GeV) 
+  */
 
-//SetMaxNumberOfCollisions( Plab, 4.0 ); // 3.0 )
+  //SetMaxNumberOfCollisions( Plab, 4.0 ); // 3.0 )
 
-//SetRadiusOfHNinteractions2( Xtotal/pi/10.0 /2.);
-/*
-G4cout << "Pt2 " << GetAveragePt2()<<" "<<GetAveragePt2()/GeV/GeV<<G4endl;
-G4cout << "Cnd " << GetCofNuclearDestruction() << G4endl;
-G4cout << "Dnd " << GetDofNuclearDestruction() << G4endl;
-G4cout << "Pt2 " << GetPt2ofNuclearDestruction()/GeV/GeV << G4endl;
-G4int Uzhi; G4cin >> Uzhi;
-*/
+  //SetRadiusOfHNinteractions2( Xtotal/pi/10.0 /2.);
+  /*
+  G4cout << "Pt2 " << GetAveragePt2()<<" "<<GetAveragePt2()/GeV/GeV<<G4endl;
+  G4cout << "Cnd " << GetCofNuclearDestruction() << G4endl;
+  G4cout << "Dnd " << GetDofNuclearDestruction() << G4endl;
+  G4cout << "Pt2 " << GetPt2ofNuclearDestruction()/GeV/GeV << G4endl;
+  G4int Uzhi; G4cin >> Uzhi;
+  */
 
 } 
 
@@ -1248,12 +1210,12 @@ G4double G4FTFParameters::GetProcProb( const G4int ProcN, const G4double y ) {
   G4double Prob( 0.0 );
   if ( y < ProcParams[ProcN][6] ) {
     Prob = ProcParams[ProcN][5]; 
-    if(Prob < 0.) Prob=0.;
+    if (Prob < 0.) Prob=0.;
     return Prob;
   }
   Prob = ProcParams[ProcN][0] * G4Exp( -ProcParams[ProcN][1]*y ) +
          ProcParams[ProcN][2] * G4Exp( -ProcParams[ProcN][3]*y ) +
          ProcParams[ProcN][4];
-  if(Prob < 0.) Prob=0.;
+  if (Prob < 0.) Prob=0.;
   return Prob;
 }

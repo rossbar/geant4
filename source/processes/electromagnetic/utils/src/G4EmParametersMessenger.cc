@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4EmParametersMessenger.cc 66241 2012-12-13 18:34:42Z gunter $
 //
 // -------------------------------------------------------------------
 //
@@ -52,6 +51,7 @@
 #include "G4UIcmdWithADouble.hh"
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4UIcmdWithAString.hh"
+#include "G4UIcmdWith3VectorAndUnit.hh"
 #include "G4UImanager.hh"
 #include "G4MscStepLimitType.hh"
 #include "G4NuclearFormfactorType.hh"
@@ -213,11 +213,23 @@ G4EmParametersMessenger::G4EmParametersMessenger(G4EmParameters* ptr)
   dnamscCmd->SetDefaultValue(false);
   dnamscCmd->AvailableForStates(G4State_PreInit);
 
-  sharkCmd = new G4UIcmdWithABool("/process/em/UseGammaShark",this);
-  sharkCmd->SetGuidance("Enable gamma super-process");
-  sharkCmd->SetParameterName("shark",true);
+  sharkCmd = new G4UIcmdWithABool("/process/em/UseGeneralProcess",this);
+  sharkCmd->SetGuidance("Enable gamma, e+- general process");
+  sharkCmd->SetParameterName("gen",true);
   sharkCmd->SetDefaultValue(false);
   sharkCmd->AvailableForStates(G4State_PreInit);
+
+  sampleTCmd = new G4UIcmdWithABool("/process/em/enableSamplingTable",this);
+  sampleTCmd->SetGuidance("Enable usage of sampling table for secondary generation");
+  sampleTCmd->SetParameterName("sampleT",true);
+  sampleTCmd->SetDefaultValue(false);
+  sampleTCmd->AvailableForStates(G4State_PreInit);
+
+  icru90Cmd = new G4UIcmdWithABool("/process/eLoss/UseICRU90",this);
+  icru90Cmd->SetGuidance("Enable usage of ICRU90 stopping powers");
+  icru90Cmd->SetParameterName("icru90",true);
+  icru90Cmd->SetDefaultValue(false);
+  icru90Cmd->AvailableForStates(G4State_PreInit);
 
   minSubSecCmd = new G4UIcmdWithADouble("/process/eLoss/minsubsec",this);
   minSubSecCmd->SetGuidance("Set the ratio subcut/cut ");
@@ -277,7 +289,7 @@ G4EmParametersMessenger::G4EmParametersMessenger(G4EmParameters* ptr)
   labCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
 
   mscfCmd = new G4UIcmdWithADouble("/process/msc/FactorForAngleLimit",this);
-  mscfCmd->SetGuidance("Set factor for computation of a limit for -t (invariant trasfer)");
+  mscfCmd->SetGuidance("Set factor for computation of a limit for -t (invariant transfer)");
   mscfCmd->SetParameterName("Fact",true);
   mscfCmd->SetRange("Fact>0");
   mscfCmd->SetDefaultValue(1.);
@@ -407,6 +419,7 @@ G4EmParametersMessenger::G4EmParametersMessenger(G4EmParameters* ptr)
 
   G4UIparameter* ptype = new G4UIparameter("type",'s',false);
   paiCmd->SetParameter(ptype);
+  ptype->SetParameterCandidates("pai PAI PAIphoton");
 
   meCmd = new G4UIcmdWithAString("/process/em/AddMicroElecRegion",this);
   meCmd->SetGuidance("Activate MicroElec model in the G4Region");
@@ -424,11 +437,12 @@ G4EmParametersMessenger::G4EmParametersMessenger(G4EmParameters* ptr)
 
   G4UIparameter* type = new G4UIparameter("dnaType",'s',false);
   dnaCmd->SetParameter(type);
+  type->SetParameterCandidates("DNA_Opt0");
 
   mscoCmd = new G4UIcommand("/process/em/AddEmRegion",this);
   mscoCmd->SetGuidance("Add optional EM configuration for a G4Region.");
-  mscoCmd->SetGuidance("  regName   : G4Region name");
-  mscoCmd->SetGuidance("  mscType   : G4EmStandard, G4EmStandard_opt1, ...");
+  mscoCmd->SetGuidance("  regName  : G4Region name");
+  mscoCmd->SetGuidance("  emType   : G4EmStandard, G4EmStandard_opt1, ...");
   mscoCmd->AvailableForStates(G4State_PreInit);
 
   G4UIparameter* mregName = new G4UIparameter("regName",'s',false);
@@ -436,6 +450,7 @@ G4EmParametersMessenger::G4EmParametersMessenger(G4EmParameters* ptr)
 
   G4UIparameter* mtype = new G4UIparameter("mscType",'s',false);
   mscoCmd->SetParameter(mtype);
+  mtype->SetParameterCandidates("G4EmStandard G4EmStandard_opt1 G4EmStandard_opt2 G4EmStandard_opt3 G4EmStandard_opt4 G4EmStandardGS G4EmStandardSS G4EmLivermore G4EmPenelope G4RadioactiveDecay");
 
   dumpCmd = new G4UIcommand("/process/em/printParameters",this);
   dumpCmd->SetGuidance("Print all EM parameters.");
@@ -456,6 +471,7 @@ G4EmParametersMessenger::G4EmParametersMessenger(G4EmParameters* ptr)
   StepFuncCmd->SetGuidance("Set the energy loss step limitation parameters for e+-.");
   StepFuncCmd->SetGuidance("  dRoverR   : max Range variation per step");
   StepFuncCmd->SetGuidance("  finalRange: range for final step");
+  StepFuncCmd->SetGuidance("  unit      : unit of finalRange");
   StepFuncCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
 
   G4UIparameter* dRoverRPrm = new G4UIparameter("dRoverR",'d',false);
@@ -467,7 +483,7 @@ G4EmParametersMessenger::G4EmParametersMessenger(G4EmParameters* ptr)
   StepFuncCmd->SetParameter(finalRangePrm);
 
   G4UIparameter* unitPrm = new G4UIparameter("unit",'s',true);
-  unitPrm->SetDefaultValue("mm");
+  unitPrm->SetDefaultUnit("mm");
   StepFuncCmd->SetParameter(unitPrm);
 
   StepFuncCmd1 = new G4UIcommand("/process/eLoss/StepFunctionMuHad",this);
@@ -540,19 +556,22 @@ G4EmParametersMessenger::G4EmParametersMessenger(G4EmParameters* ptr)
   fiCmd->SetParameter(regNam);
 
   G4UIparameter* tlength = new G4UIparameter("tlength",'d',false);
+  tlength->SetParameterRange("tlength>0");
   fiCmd->SetParameter(tlength);
 
   G4UIparameter* unitT = new G4UIparameter("unitT",'s',true);
+  unitT->SetDefaultUnit("mm");
   fiCmd->SetParameter(unitT);
 
-  G4UIparameter* flagT = new G4UIparameter("tflag",'s',true);
+  G4UIparameter* flagT = new G4UIparameter("tflag",'b',true);
+  flagT->SetDefaultValue(true);
   fiCmd->SetParameter(flagT);
 
   bsCmd = new G4UIcommand("/process/em/setSecBiasing",this);
-  bsCmd->SetGuidance("Set bremsstrahlung or delta-e- splitting/Russian roullette per region.");
+  bsCmd->SetGuidance("Set bremsstrahlung or delta-e- splitting/Russian roulette per region.");
   bsCmd->SetGuidance("  bProcNam : process name");
   bsCmd->SetGuidance("  bRegNam  : region name");
-  bsCmd->SetGuidance("  bFactor  : number of splitted gamma or probability of Russian roulette");
+  bsCmd->SetGuidance("  bFactor  : number of split gamma or probability of Russian roulette");
   bsCmd->SetGuidance("  bEnergy  : max energy of a secondary for this biasing method");
   bsCmd->SetGuidance("  bUnit    : energy unit");
   bsCmd->AvailableForStates(G4State_Idle,G4State_Idle);
@@ -570,7 +589,20 @@ G4EmParametersMessenger::G4EmParametersMessenger(G4EmParameters* ptr)
   bsCmd->SetParameter(bEnergy);
 
   G4UIparameter* bUnit = new G4UIparameter("bUnit",'s',true);
+  bUnit->SetDefaultUnit("MeV");
   bsCmd->SetParameter(bUnit);
+
+  dirSplitCmd = new G4UIcmdWithABool("/process/em/setDirectionalSplitting",this);
+  dirSplitCmd->SetGuidance("Enable directional brem splitting");
+  dirSplitCmd->AvailableForStates(G4State_Idle,G4State_Idle);
+
+  dirSplitTargetCmd = new G4UIcmdWith3VectorAndUnit("/process/em/setDirectionalSplittingTarget",this);
+  dirSplitTargetCmd->SetGuidance("Position of arget for directional splitting");
+  dirSplitTargetCmd->AvailableForStates(G4State_Idle,G4State_Idle);
+
+  dirSplitRadiusCmd = new G4UIcmdWithADoubleAndUnit("/process/em/setDirectionalSplittingRadius",this);
+  dirSplitRadiusCmd->SetGuidance("Radius of target for directional splitting");
+  dirSplitRadiusCmd->AvailableForStates(G4State_Idle,G4State_Idle);
 
   nffCmd = new G4UIcmdWithAString("/process/em/setNuclearFormFactor",this);
   nffCmd->SetGuidance("Define typy of nuclear form-factor");
@@ -579,7 +611,7 @@ G4EmParametersMessenger::G4EmParametersMessenger(G4EmParameters* ptr)
   nffCmd->AvailableForStates(G4State_PreInit);
 
   tripletCmd = new G4UIcmdWithAnInteger("/process/gconv/conversionType",this);
-  tripletCmd->SetGuidance("gamma conversion triplet/nuclear genaration type:");
+  tripletCmd->SetGuidance("gamma conversion triplet/nuclear generation type:");
   tripletCmd->SetGuidance("0 - (default) both triplet and nuclear");
   tripletCmd->SetGuidance("1 - force nuclear");
   tripletCmd->SetGuidance("2 - force triplet");
@@ -631,6 +663,8 @@ G4EmParametersMessenger::~G4EmParametersMessenger()
   delete dnasCmd;
   delete dnamscCmd;
   delete sharkCmd;
+  delete sampleTCmd;
+  delete icru90Cmd;
 
   delete minSubSecCmd;
   delete minEnCmd;
@@ -678,6 +712,9 @@ G4EmParametersMessenger::~G4EmParametersMessenger()
   delete bfCmd;
   delete fiCmd;
   delete bsCmd;
+  delete dirSplitCmd;
+  delete dirSplitTargetCmd;
+  delete dirSplitRadiusCmd;
   delete nffCmd;
 
   delete onIsolatedCmd;
@@ -744,12 +781,14 @@ void G4EmParametersMessenger::SetNewValue(G4UIcommand* command,
     theParameters->SetUseMottCorrection(mottCmd->GetNewBoolValue(newValue));
   } else if (command == birksCmd) {
     theParameters->SetBirksActive(birksCmd->GetNewBoolValue(newValue));
+  } else if (command == icru90Cmd) {
+    theParameters->SetUseICRU90Data(icru90Cmd->GetNewBoolValue(newValue));
   } else if (command == dnafCmd) {
     theParameters->SetDNAFast(dnafCmd->GetNewBoolValue(newValue));
   } else if (command == dnasCmd) {
     theParameters->SetDNAStationary(dnasCmd->GetNewBoolValue(newValue));
   } else if (command == dnamscCmd) {
-    theParameters->SetBirksActive(dnamscCmd->GetNewBoolValue(newValue));
+    theParameters->SetDNAElectronMsc(dnamscCmd->GetNewBoolValue(newValue));
   } else if (command == dnaSolCmd) {
     G4DNAModelSubType ttt = fDNAUnknownModel;
     if(newValue == "Ritchie1994") { 
@@ -761,7 +800,9 @@ void G4EmParametersMessenger::SetNewValue(G4UIcommand* command,
     }
     theParameters->SetDNAeSolvationSubType(ttt);
   } else if (command == sharkCmd) {
-    theParameters->SetGammaSharkActive(sharkCmd->GetNewBoolValue(newValue));
+    theParameters->SetGeneralProcessActive(sharkCmd->GetNewBoolValue(newValue));
+  } else if (command == sampleTCmd) {
+    theParameters->SetEnableSamplingTable(sampleTCmd->GetNewBoolValue(newValue));
 
   } else if (command == minSubSecCmd) {
     theParameters->SetMinSubRange(minSubSecCmd->GetNewDoubleValue(newValue));
@@ -929,6 +970,18 @@ void G4EmParametersMessenger::SetNewValue(G4UIcommand* command,
     is >> s1 >> s2 >> fb >> en >> unt;
     en *= G4UIcommand::ValueOf(unt);    
     theParameters->ActivateSecondaryBiasing(s1,s2,fb,en);
+    physicsModified = true;
+  } else if (command == dirSplitCmd) {
+    theParameters->SetDirectionalSplitting(
+      dirSplitCmd->GetNewBoolValue(newValue));
+    physicsModified = true;
+  } else if (command == dirSplitTargetCmd) {
+    G4ThreeVector t = dirSplitTargetCmd->GetNew3VectorValue(newValue);
+    theParameters->SetDirectionalSplittingTarget(t);
+    physicsModified = true;
+  } else if (command == dirSplitRadiusCmd) {
+    G4double r = dirSplitRadiusCmd->GetNewDoubleValue(newValue);
+    theParameters->SetDirectionalSplittingRadius(r);
     physicsModified = true;
   } else if (command == nffCmd) {
     G4NuclearFormfactorType x = fNoneNF;

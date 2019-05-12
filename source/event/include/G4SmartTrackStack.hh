@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4SmartTrackStack.hh 66892 2013-01-17 10:57:59Z gunter $
 //
 //
 //  Last Modification : 04/Oct/12 S. Kamperis
@@ -52,8 +51,8 @@ class G4SmartTrackStack
   private:
       const G4SmartTrackStack & operator=
                           (const G4SmartTrackStack &right);
-      G4int operator==(const G4SmartTrackStack &right) const;
-      G4int operator!=(const G4SmartTrackStack &right) const;
+      G4bool operator==(const G4SmartTrackStack &right) const;
+      G4bool operator!=(const G4SmartTrackStack &right) const;
 
   public:
       void PushToStack(const G4StackedTrack& aStackedTrack);

@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4ParticleGun.hh 94950 2016-01-07 11:53:14Z gcosmo $
 //
 
 #ifndef G4ParticleGun_h
@@ -76,8 +75,8 @@ class G4ParticleGun:public G4VPrimaryGenerator
   private:
      G4ParticleGun(const G4ParticleGun&) = delete;
      const G4ParticleGun & operator=(const G4ParticleGun&) = delete;
-     G4int operator==(const G4ParticleGun&) const = delete;
-     G4int operator!=(const G4ParticleGun&) const = delete;
+     G4bool operator==(const G4ParticleGun&) const = delete;
+     G4bool operator!=(const G4ParticleGun&) const = delete;
 
   public: // with description
      virtual void GeneratePrimaryVertex(G4Event* evt);

@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4ViewParameters.cc 109510 2018-04-26 07:15:57Z gcosmo $
 //
 // 
 // John Allison  19th July 1996
@@ -38,7 +37,7 @@
 #include "G4VPhysicalVolume.hh"
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
-#include "G4ios.hh"
+#include "G4Polyhedron.hh"
 
 G4ViewParameters::G4ViewParameters ():
   fDrawingStyle (wireframe),
@@ -54,7 +53,7 @@ G4ViewParameters::G4ViewParameters ():
   fCutawayMode (cutawayUnion),
   fCutawayPlanes (),
   fExplodeFactor (1.),
-  fNoOfSides (24),
+  fNoOfSides (),
   fViewpointDirection (G4Vector3D (0., 0., 1.)),  // On z-axis.
   fUpVector (G4Vector3D (0., 1., 0.)),            // y-axis up.
   fFieldHalfAngle (0.),                           // Orthogonal projection.
@@ -101,6 +100,15 @@ G4ViewParameters::G4ViewParameters ():
   fDisplayLightFrontGreen(1.),
   fDisplayLightFrontBlue(0.)
 {
+  // Pick up default no of sides from G4Polyhedron.
+  // Note that this parameter is variously called:
+  //   No of sides
+  //   NumberOfRotationSteps
+  //   Line segments per circle
+  // It refers to the approximation of a circle by a polygon of
+  // stated number of sides.
+  fNoOfSides = G4Polyhedron::GetNumberOfRotationSteps();
+  
   fDefaultMarker.SetScreenSize (5.);
   // Markers are 5 pixels "overall" size, i.e., diameter.
 }
@@ -1003,7 +1011,7 @@ std::ostream& operator << (std::ostream& os, const G4ViewParameters& v) {
     os
     << "\n  Light front position: "
     << v.fDisplayLightFrontX/mm << ' ' << v.fDisplayLightFrontY/mm
-    << v.fDisplayLightFrontZ/mm << " mm"
+    << ' ' << v.fDisplayLightFrontZ/mm << " mm"
     << "\n  Light front time:     " << v.fDisplayLightFrontT/ns << " ns"
     << "\n  Light front colour:   " << v.fDisplayLightFrontRed
     << ' ' << v.fDisplayLightFrontGreen << ' ' << v.fDisplayLightFrontBlue;
