@@ -176,7 +176,7 @@ void G4ParticleHPInelasticCompFS::Init (G4double A, G4double Z, G4int M, G4Strin
     else if(dataType==13)
     {
       theFinalStatePhotons[it] = new G4ParticleHPPhotonDist;
-      theFinalStatePhotons[it]->InitPartials(theData);
+      theFinalStatePhotons[it]->InitPartials(theData, theXsection[50]);
     }
     else if(dataType==14)
     {
@@ -403,6 +403,8 @@ void G4ParticleHPInelasticCompFS::CompositeApply(const G4HadProjectile & theTrac
            iLevel = 0;
            G4bool find = false;
            G4int imaxEx = 0;
+           G4double level_tolerance = 1.0*CLHEP::keV;
+
            while( theGammas.GetLevel(iLevel+1) != 0 ) // Loop checking, 11.05.2015, T. Koi
            { 
               G4double maxEx = 0.0;
@@ -411,8 +413,15 @@ void G4ParticleHPInelasticCompFS::CompositeApply(const G4HadProjectile & theTrac
                  maxEx = theGammas.GetLevel(iLevel)->GetLevelEnergy();  
                  imaxEx = iLevel;
               }
-              if ( eExcitation < theGammas.GetLevel(iLevel)->GetLevelEnergy() ) 
-              {
+
+              // Fix bug 1789 DHW - first if-branch added because gamma data come from ENSDF
+              //                    and do not necessarily match the excitations used in ENDF-B.VII
+              //                    Compromise solution: use 1 keV tolerance suggested by T. Koi
+              if (std::abs(eExcitation - theGammas.GetLevel(iLevel)->GetLevelEnergy() ) < level_tolerance) {
+                find = true;
+                break;
+
+              } else if (eExcitation < theGammas.GetLevel(iLevel)->GetLevelEnergy() ) {
                  find = true; 
                  iLevel--; 
                  // very small eExcitation, iLevel becomes -1, this is protected below.

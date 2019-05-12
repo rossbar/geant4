@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4LogicalBorderSurface.hh 80067 2014-03-31 13:48:09Z gcosmo $
 //
 // class G4LogicalBorderSurface
 //
@@ -82,8 +81,8 @@ class G4LogicalBorderSurface : public G4LogicalSurface
     static void DumpInfo(); 
       // To handle the table of surfaces.
 
-    G4int operator==( const G4LogicalBorderSurface &right ) const;
-    G4int operator!=( const G4LogicalBorderSurface &right ) const;
+    G4bool operator==( const G4LogicalBorderSurface &right ) const;
+    G4bool operator!=( const G4LogicalBorderSurface &right ) const;
       // Operators.
 
   private:

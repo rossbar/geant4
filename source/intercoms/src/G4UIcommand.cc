@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4UIcommand.cc 108081 2017-12-21 07:53:54Z gcosmo $
 //
 // 
 
@@ -110,12 +109,12 @@ G4UIcommand::~G4UIcommand()
   parameter.clear();
 }
 
-G4int G4UIcommand::operator==(const G4UIcommand &right) const
+G4bool G4UIcommand::operator==(const G4UIcommand &right) const
 {
   return ( commandPath == right.GetCommandPath() );
 }
 
-G4int G4UIcommand::operator!=(const G4UIcommand &right) const
+G4bool G4UIcommand::operator!=(const G4UIcommand &right) const
 {
   return ( commandPath != right.GetCommandPath() );
 }
@@ -663,8 +662,8 @@ RangeCheck(const char* t) {
         switch ( type ) {
             case 'D':  is >> newVal[i].D;  break;
             case 'I':  is >> newVal[i].I;  break;
-            case 'S':
-            case 'B':
+            case 'S':  is >> newVal[i].S;  break;
+            case 'B':  is >> newVal[i].C;  break;
             default:  ;
         }
    }
@@ -941,6 +940,19 @@ Eval2(yystype arg1, G4int op, yystype arg2)
             case 'I': 
                 if( arg2.type == CONSTINT ) {
                     return CompareInt( newVal[i].I, op, arg2.I );
+//===================================================================
+// MA - 2018.07.23
+                } else if( arg2.type == IDENTIFIER ) {
+                  unsigned iii = IndexOf( arg2.S );
+                  char newValtype2 = toupper(parameter[iii]->GetParameterType());
+                  if( newValtype2 == 'I' ) {
+                    return CompareInt( newVal[i].I, op, newVal[iii].I );
+                  } else if( newValtype2 == 'D' ) {
+                    G4cerr << "Warning : Integer is compared with double : "
+                           << rangeString << G4endl;
+                    return CompareDouble( newVal[i].I, op, newVal[iii].D );
+                  }
+//===================================================================
                 } else {
                     G4cerr << "integer operand expected for "
                          <<  rangeString 
@@ -949,9 +961,19 @@ Eval2(yystype arg1, G4int op, yystype arg2)
             case 'D':
                 if( arg2.type == CONSTDOUBLE ) {
                     return CompareDouble( newVal[i].D, op, arg2.D );
-                } else
-                if ( arg2.type == CONSTINT ) {  // integral promotion
+                } else if ( arg2.type == CONSTINT ) {  // integral promotion
                     return CompareDouble( newVal[i].D, op, arg2.I );
+//===================================================================
+// MA - 2018.07.23
+                } else if( arg2.type == IDENTIFIER ) {
+                  unsigned iii = IndexOf( arg2.S );
+                  char newValtype2 = toupper(parameter[iii]->GetParameterType());
+                  if( newValtype2 == 'I' ) {
+                    return CompareDouble( newVal[i].D, op, newVal[iii].I );
+                  } else if( newValtype2 == 'D' ) {
+                    return CompareDouble( newVal[i].D, op, newVal[iii].D );
+                  }
+//===================================================================
                 } break;
             default: ;
         }

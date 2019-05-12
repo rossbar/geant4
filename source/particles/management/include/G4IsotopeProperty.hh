@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4IsotopeProperty.hh 96314 2016-04-06 07:21:51Z gcosmo $
 //
 // 
 // ------------------------------------------------------------
@@ -58,8 +57,8 @@ class G4IsotopeProperty
   G4IsotopeProperty & operator=(G4IsotopeProperty& right);
  
   // equal / unequal operator
-  G4int operator==(const G4IsotopeProperty &right) const;
-  G4int operator!=(const G4IsotopeProperty &right) const;
+  G4bool operator==(const G4IsotopeProperty &right) const;
+  G4bool operator!=(const G4IsotopeProperty &right) const;
 
   // destructor
   virtual ~G4IsotopeProperty();

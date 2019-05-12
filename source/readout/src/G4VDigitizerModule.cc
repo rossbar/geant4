@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4VDigitizerModule.cc 80987 2014-05-19 10:50:22Z gcosmo $
 //
 
 #include "G4VDigitizerModule.hh"
@@ -41,10 +40,10 @@ G4VDigitizerModule::G4VDigitizerModule(G4String modName)
 G4VDigitizerModule::~G4VDigitizerModule()
 {;}
 
-int G4VDigitizerModule::operator==(const G4VDigitizerModule &right) const
+G4bool G4VDigitizerModule::operator==(const G4VDigitizerModule &right) const
 { return (moduleName==right.moduleName); }
 
-int G4VDigitizerModule::operator!=(const G4VDigitizerModule &right) const
+G4bool G4VDigitizerModule::operator!=(const G4VDigitizerModule &right) const
 { return (moduleName!=right.moduleName); }
 
 void G4VDigitizerModule::StoreDigiCollection(G4VDigiCollection* aDC)

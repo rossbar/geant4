@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4MultiRunAction.hh 90212 2016-01-27 18:33:12Z adotti $
 //
 //---------------------------------------------------------------
 //
@@ -50,7 +49,7 @@ G4Run* G4MultiRunAction::GenerateRun() {
               " of G4Run, not allowed.");
           return nullptr;
       }
-      aRun = anotherRun;
+      if( anotherRun != nullptr) aRun = anotherRun;
   }
   return aRun;
 }

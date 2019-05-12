@@ -1,10 +1,6 @@
 
-        ############################################
-        !!! WARNING - FPE detection is activated !!!
-        ############################################
-
 **************************************************************
- Geant4 version Name: geant4-10-05-beta-01    (29-June-2018)
+ Geant4 version Name: geant4-10-05-patch-01    (17-April-2019)
                        Copyright : Geant4 Collaboration
                       References : NIM A 506 (2003), 250-303
                                  : IEEE-TNS 53 (2006), 270-278
@@ -257,18 +253,18 @@ Start closing geometry.
 G4GeometryManager::ReportVoxelStats -- Voxel Statistics
 
     Total memory consumed for geometry optimisation:   0 kByte
-    Total CPU time elapsed for geometry optimisation: 0 seconds
+    Total CPU time elapsed for geometry optimisation: 0.01 seconds
 
     Voxelisation: top CPU users:
     Percent   Total CPU    System CPU       Memory  Volume
     -------   ----------   ----------     --------  ----------
-       0.00         0.00         0.00            0k Frame
+     100.00         0.01         0.00            0k Frame
        0.00         0.00         0.00            0k Gas
 
     Voxelisation: top memory users:
     Percent     Memory      Heads    Nodes   Pointers    Total CPU    Volume
     -------   --------     ------   ------   --------   ----------    ----------
-      55.71          0k         2        2          9         0.00    Frame
+      55.71          0k         2        2          9         0.01    Frame
       44.29          0k         1        3          4         0.00    Gas
 ### Run 0 starts.
 
@@ -290,7 +286,7 @@ G4GeometryManager::ReportVoxelStats -- Voxel Statistics
  Run terminated.
 Run Summary
   Number of events processed : 100000
-  User=6.050000s Real=6.068313s Sys=0.000000s
+  User=5.810000s Real=5.839501s Sys=0.000000s
 
  ======================== run summary ======================
 
@@ -300,7 +296,7 @@ Run Summary
 
 --------- Ranecu engine status ---------
  Initial seed (index) = 0
- Current couple of seeds = 55770765, 732737266
+ Current couple of seeds = 549005491, 1556504809
 ----------------------------------------
 G4 kernel has come to Quit state.
 UserDetectorConstruction deleted.
@@ -320,11 +316,11 @@ Pool ID '7G4Event', size : 0.000961 MB
 Pool ID '15G4PrimaryVertex', size : 0.000961 MB
 Pool ID '17G4PrimaryParticle', size : 0.000961 MB
 Pool ID '17G4DynamicParticle', size : 0.00288 MB
-Pool ID '7G4Track', size : 0.00577 MB
+Pool ID '7G4Track', size : 0.00481 MB
 Pool ID '18G4TouchableHistory', size : 0.000961 MB
 Pool ID '15G4CountedObjectIvE', size : 0.000961 MB
 Number of memory pools allocated: 9 of which, static: 0
-Dynamic pools deleted: 9 / Total memory freed: 0.03 MB
+Dynamic pools deleted: 9 / Total memory freed: 0.029 MB
 ============================================================
 G4Allocator objects are deleted.
 UImanager deleted.

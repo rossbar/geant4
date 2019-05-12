@@ -32,7 +32,7 @@
 #include "globals.hh"
 #include <vector>
 #include <fstream>
-#include "g4csv.hh"
+//#include "g4csv.hh"
 
 
 #ifndef HADRONTHERAPYANALYSISMANAGER_HH
@@ -43,7 +43,7 @@ class HadrontherapyAnalysisFileMessenger;
 /**
  * A class for connecting the simulation to an analysis package.
  */
-class HadrontherapyAnalysisManager
+class HadrontherapyAnalysis
 {
 private:
     /**
@@ -52,21 +52,21 @@ private:
      *
      * @see GetInstance
      */
-    HadrontherapyAnalysisManager();
+    HadrontherapyAnalysis();
     
     
     
 public:
-    ~HadrontherapyAnalysisManager();
+    ~HadrontherapyAnalysis();
     
     /**
      * Get the pointer to the analysis manager.
      */
-    static HadrontherapyAnalysisManager* GetInstance();
+    static HadrontherapyAnalysis* GetInstance();
     
     
     
-    static HadrontherapyAnalysisManager* instance;
+    static HadrontherapyAnalysis* instance;
     HadrontherapyAnalysisFileMessenger* fMess;
     
 };
@@ -90,7 +90,7 @@ struct ion
   G4int A; 		 // mass number
   G4double *dose; 	 // pointer to dose matrix
   unsigned int    *fluence;  // pointer to fluence matrix
-  //friend bool operator<(const ion& a, const ion& b) {return (a.Z == b.Z) ? b.A < a.A : b.Z < a.Z ;}
+  //friend G4bool operator<(const ion& a, const ion& b) {return (a.Z == b.Z) ? b.A < a.A : b.Z < a.Z ;}
   G4bool operator<(const ion& a) const{return (this->Z == a.Z) ? this-> A < a.A : this->Z < a.Z ;}
 };
 
@@ -113,7 +113,6 @@ public:
 
   static G4bool secondary;
   // Full list of generated nuclides
-    
     
     
   void PrintNuclides(); 

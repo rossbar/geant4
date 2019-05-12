@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4TrackStack.hh 66892 2013-01-17 10:57:59Z gunter $
 //
 //
 //  Last Modification : 09/Dec/96 M.Asai
@@ -55,8 +54,8 @@ public:
   
 private:
 	const G4TrackStack & operator=(const G4TrackStack &right);
-	G4int operator==(const G4TrackStack &right) const;
-	G4int operator!=(const G4TrackStack &right) const;
+	G4bool operator==(const G4TrackStack &right) const;
+	G4bool operator!=(const G4TrackStack &right) const;
   
 public:
 	void PushToStack(const G4StackedTrack& aStackedTrack) { push_back(aStackedTrack); }

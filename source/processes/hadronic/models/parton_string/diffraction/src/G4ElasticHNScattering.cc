@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4ElasticHNScattering.cc 100828 2016-11-02 15:25:59Z gcosmo $
 //
 
 // ------------------------------------------------------------
@@ -228,7 +227,7 @@ G4ThreeVector G4ElasticHNScattering::GaussianPt( G4double AveragePt2,
 
 G4ElasticHNScattering::G4ElasticHNScattering( const G4ElasticHNScattering& ) {
   throw G4HadronicException( __FILE__, __LINE__, 
-                             "G4ElasticHNScattering copy contructor not meant to be called" );
+                             "G4ElasticHNScattering copy constructor not meant to be called" );
 }
 
 
@@ -247,7 +246,7 @@ const G4ElasticHNScattering & G4ElasticHNScattering::operator=( const G4ElasticH
 
 //============================================================================
 
-int G4ElasticHNScattering::operator==( const G4ElasticHNScattering& ) const {
+G4bool G4ElasticHNScattering::operator==( const G4ElasticHNScattering& ) const {
  throw G4HadronicException( __FILE__, __LINE__, 
                             "G4ElasticHNScattering == operator not meant to be called" );
 }
@@ -255,7 +254,7 @@ int G4ElasticHNScattering::operator==( const G4ElasticHNScattering& ) const {
 
 //============================================================================
 
-int G4ElasticHNScattering::operator!=( const G4ElasticHNScattering& ) const {
+G4bool G4ElasticHNScattering::operator!=( const G4ElasticHNScattering& ) const {
   throw G4HadronicException( __FILE__, __LINE__, 
                             "G4ElasticHNScattering != operator not meant to be called" );
 }

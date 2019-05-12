@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4RichTrajectoryPoint.hh 110262 2018-05-17 14:25:55Z gcosmo $
 //
 //---------------------------------------------------------------
 //
@@ -93,7 +92,7 @@ public:
   // Operators
   inline void *operator new(size_t);
   inline void operator delete(void *aRichTrajectoryPoint);
-  inline int operator==(const G4RichTrajectoryPoint& right) const
+  inline G4bool operator==(const G4RichTrajectoryPoint& right) const
   { return (this==&right); }
 
   // Get methods for HepRep style attributes

@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4VExceptionHandler.hh 110286 2018-05-18 09:40:01Z gcosmo $
 //
 // 
 // ------------------------------------------------------------
@@ -59,8 +58,8 @@ public:
 
   G4VExceptionHandler();
   virtual ~G4VExceptionHandler();
-  G4int operator==(const G4VExceptionHandler &right) const;
-  G4int operator!=(const G4VExceptionHandler &right) const;
+  G4bool operator==(const G4VExceptionHandler &right) const;
+  G4bool operator!=(const G4VExceptionHandler &right) const;
 
 public: // with description
 

@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4SauterGavrilaAngularDistribution.cc 104021 2017-05-08 07:35:57Z gcosmo $
 //
 // -------------------------------------------------------------------
 //
@@ -47,7 +46,7 @@
 #include "Randomize.hh"
 
 G4SauterGavrilaAngularDistribution::G4SauterGavrilaAngularDistribution()
-  : G4VEmAngularDistribution("AngularGenSauterGavrila")
+  : G4VEmAngularDistribution("SauterGavrila")
 {}    
 
 G4SauterGavrilaAngularDistribution::~G4SauterGavrilaAngularDistribution() 

@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4GDMLParser.hh 104688 2017-06-12 12:16:28Z gcosmo $
 //
 //
 // class G4GDMLParser
@@ -48,7 +47,7 @@
 
 #include "G4TransportationManager.hh"
 #include "G4Navigator.hh"
-
+#include "G4Threading.hh"
 
 #define G4GDML_DEFAULT_SCHEMALOCATION G4String("http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd")
 

@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4DecayTable.hh 105720 2017-08-16 12:38:10Z gcosmo $
 //
 //
 // ------------------------------------------------------------
@@ -70,8 +69,8 @@ class G4DecayTable
 
  public:
     // equality operators
-    G4int operator==(const G4DecayTable &right) const {return (this == &right);};
-    G4int operator!=(const G4DecayTable &right) const {return (this != &right);};
+    G4bool operator==(const G4DecayTable &right) const {return (this == &right);};
+    G4bool operator!=(const G4DecayTable &right) const {return (this != &right);};
 
  public: // With Description
     void  Insert( G4VDecayChannel* aChannel);

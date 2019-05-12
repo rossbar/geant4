@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4GammaConversionToMuons.hh 106961 2017-10-31 08:36:29Z gcosmo $
 //
 //         ------------ G4GammaConversionToMuons physics process ------
 //         by H.Burkhardt, S. Kelner and R. Kokoulin, April 2002
@@ -125,6 +124,7 @@ private:
 
   G4double Mmuon;
   G4double Rc;
+  G4double LimitEnergy;            // energy limit for accurate x-section
   G4double LowestEnergyLimit ;     // low  energy limit of the tables
   G4double HighestEnergyLimit ;    // high energy limit of the tables
 

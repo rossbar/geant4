@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4SmartTrackStack.cc 66892 2013-01-17 10:57:59Z gunter $
 //
 
 #include "G4SmartTrackStack.hh"
@@ -64,11 +63,11 @@ G4SmartTrackStack::operator=(const G4SmartTrackStack &) {
 	return *this;
 }
 
-int G4SmartTrackStack::operator==(const G4SmartTrackStack &right) const {
+G4bool G4SmartTrackStack::operator==(const G4SmartTrackStack &right) const {
 	return (this==&right);
 }
 
-int G4SmartTrackStack::operator!=(const G4SmartTrackStack &right) const {
+G4bool G4SmartTrackStack::operator!=(const G4SmartTrackStack &right) const {
 	return (this!=&right);
 }
 

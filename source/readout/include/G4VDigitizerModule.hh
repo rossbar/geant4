@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4VDigitizerModule.hh 80987 2014-05-19 10:50:22Z gcosmo $
 //
 
 #ifndef G4VDigitizerModule_H
@@ -54,8 +53,8 @@ class G4VDigitizerModule
     // the detector module must be unique.
   public:
     virtual ~G4VDigitizerModule();
-    int operator==(const G4VDigitizerModule &right) const;
-    int operator!=(const G4VDigitizerModule &right) const;
+    G4bool operator==(const G4VDigitizerModule &right) const;
+    G4bool operator!=(const G4VDigitizerModule &right) const;
 
   public: // with description
     virtual void Digitize() = 0;

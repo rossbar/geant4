@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4ModifiedTsai.cc 110415 2018-05-23 06:44:31Z gcosmo $
 //
 // -------------------------------------------------------------------
 //
@@ -64,7 +63,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 G4ModifiedTsai::G4ModifiedTsai(const G4String&)
-  : G4VEmAngularDistribution("AngularGenUrban")
+  : G4VEmAngularDistribution("ModifiedTsai")
 {}    
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....

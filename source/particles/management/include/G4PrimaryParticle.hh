@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4PrimaryParticle.hh 110257 2018-05-17 14:20:12Z gcosmo $
 //
 //
 
@@ -94,8 +93,8 @@ class G4PrimaryParticle
   G4PrimaryParticle & operator=(const G4PrimaryParticle &right);
   
   // equal operator  returns 'true' only if the same object (i.e comarison by pointer value)
-  G4int operator==(const G4PrimaryParticle &right) const;
-  G4int operator!=(const G4PrimaryParticle &right) const;
+  G4bool operator==(const G4PrimaryParticle &right) const;
+  G4bool operator!=(const G4PrimaryParticle &right) const;
   
  public: // with description
   void Print() const;

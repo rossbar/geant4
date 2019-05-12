@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: B5HadCalorimeterHit.cc 101036 2016-11-04 09:00:23Z gcosmo $
 //
 /// \file B5HadCalorimeterHit.cc
 /// \brief Implementation of the B5HadCalorimeterHit class
@@ -92,7 +91,7 @@ const B5HadCalorimeterHit& B5HadCalorimeterHit::operator=(
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-int B5HadCalorimeterHit::operator==(const B5HadCalorimeterHit &right) const
+G4bool B5HadCalorimeterHit::operator==(const B5HadCalorimeterHit &right) const
 {
   return (fColumnID==right.fColumnID&&fRowID==right.fRowID);
 }

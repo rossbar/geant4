@@ -27,7 +27,6 @@
 /// \brief Implementation of the ExN02TrackerHit class
 //
 //
-// $Id: ExN02TrackerHit.cc 78055 2013-12-03 08:27:48Z gcosmo $
 //
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -73,9 +72,9 @@ const ExN02TrackerHit& ExN02TrackerHit::operator=(const ExN02TrackerHit& right)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4int ExN02TrackerHit::operator==(const ExN02TrackerHit& right) const
+G4bool ExN02TrackerHit::operator==(const ExN02TrackerHit& right) const
 {
-  return (this==&right) ? 1 : 0;
+  return (this==&right) ? true : false;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

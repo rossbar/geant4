@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4SDStructure.cc 105753 2017-08-16 13:46:21Z gcosmo $
 //
 
 // G4SDStructure
@@ -53,7 +52,7 @@ G4SDStructure::~G4SDStructure()
   detector.clear();
 }
 
-G4int G4SDStructure::operator==(const G4SDStructure &right) const
+G4bool G4SDStructure::operator==(const G4SDStructure &right) const
 {
   return (this==&right);
 }

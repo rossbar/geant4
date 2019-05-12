@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: RE05MuonHit.cc 98775 2016-08-09 14:30:39Z gcosmo $
 //
 /// \file RE05/src/RE05MuonHit.cc
 /// \brief Implementation of the RE05MuonHit class
@@ -72,9 +71,9 @@ const RE05MuonHit& RE05MuonHit::operator=(const RE05MuonHit &right)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4int RE05MuonHit::operator==(const RE05MuonHit &right) const
+G4bool RE05MuonHit::operator==(const RE05MuonHit &right) const
 {
-  return (this==&right) ? 1 : 0;
+  return (this==&right) ? true : false;
 }
 
 std::map<G4String,G4AttDef> RE05MuonHit::fAttDefs;

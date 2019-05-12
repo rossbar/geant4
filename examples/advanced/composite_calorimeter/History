@@ -1,5 +1,4 @@
 -------------------------------------------------------------------
-$Id: History 110842 2018-06-19 07:29:21Z gcosmo $
 -------------------------------------------------------------------
 
      =========================================================
@@ -8,6 +7,15 @@ $Id: History 110842 2018-06-19 07:29:21Z gcosmo $
 
                       Example History file
                       ---------------------
+
+31.01.2019 - I.Hrivnacova (ccal-V10-04-08)
+- Merged GitHub PR #4: all Boolean operators now return G4bool.
+
+13.11.2018 - V.Ivanchenko (ccal-V10-04-07)
+- General clean-up of the example including user actions and SD classes
+
+13.09.2018 - S. Guatelli (ccal-V10-04-06)
+- G4VIS_USE and G4UI_USE deleted (consistency with the other examples)
 
 18.06.2018 - A.Ribon (ccal-V10-04-05)
 - Fixed compilation warning on gcc-8 in CCalRunAction

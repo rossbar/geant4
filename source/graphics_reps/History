@@ -1,4 +1,3 @@
-$Id: History 110390 2018-05-22 08:28:07Z gcosmo $
 -------------------------------------------------------------------
 
      =========================================================
@@ -19,6 +18,21 @@ committal in the CVS repository !
 
 History file for graphics_reps category
 ---------------------------------------
+
+31 January 2019  Ivana Hrivnacova (greps-V10-04-09)
+- Merged GitHub PR #4: all Boolean operators now return G4bool.
+
+19 October 2018  John Allison (greps-V10-04-08)
+- G4VisExtent: Add GetNullExtent.
+
+16 October 2018  John Allison (greps-V10-04-07)
+- G4VisExtent: Add operator==.
+
+12 September 2018  John Allison (greps-V10-04-06)
+- G4VVisManager: Add fDrawOverlapsFlag and access functions.
+  o This is intended to be inspected by methods capable of drawing
+    overlaps. See for example, CheckOverlaps in G4PVPlacement and
+    G4PVParameterised.
 
 22 May 2018  Gabriele Cosmo (greps-V10-04-05)
 - Disabled deprecated static data member G4VisAttributes::Invisible for
@@ -685,7 +699,7 @@ June 11, 2012 G.Cosmo (greps-V09-05-09)
 - Replaced M_PI with CLHEP's pi.
 
 8th December 2004  G.Cosmo  (greps-V06-02-03)
-- HepPolyhedron, BooleanProcessor: replaced occurences of HepStd::
+- HepPolyhedron, BooleanProcessor: replaced occurrences of HepStd::
   with std::
 - Added inclusion of <cmath> in HepPolyhedron.cc.
 

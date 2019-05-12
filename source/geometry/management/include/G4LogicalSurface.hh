@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4LogicalSurface.hh 80066 2014-03-31 13:47:20Z gcosmo $
 //
 ////////////////////////////////////////////////////////////////////////
 // Class G4LogicalSurface
@@ -94,8 +93,8 @@ class G4LogicalSurface
 
    virtual ~G4LogicalSurface();
 
-   inline G4int operator==(const G4LogicalSurface &right) const;
-   inline G4int operator!=(const G4LogicalSurface &right) const;
+   inline G4bool operator==(const G4LogicalSurface &right) const;
+   inline G4bool operator!=(const G4LogicalSurface &right) const;
 
  protected:
 

@@ -1,10 +1,6 @@
 
-        ############################################
-        !!! WARNING - FPE detection is activated !!!
-        ############################################
-
 **************************************************************
- Geant4 version Name: geant4-10-05-beta-01    (29-June-2018)
+ Geant4 version Name: geant4-10-05-patch-01    (17-April-2019)
                        Copyright : Geant4 Collaboration
                       References : NIM A 506 (2003), 250-303
                                  : IEEE-TNS 53 (2006), 270-278
@@ -26,12 +22,10 @@ RayTracer (RayTracer)
 VRML1FILE (VRML1FILE)
 VRML2FILE (VRML2FILE)
 gMocrenFile (gMocrenFile)
-OpenGLImmediateQt (OGLIQt, OGLI)
-OpenGLStoredQt (OGLSQt, OGL, OGLS)
-OpenGLImmediateXm (OGLIXm, OGLIQt_FALLBACK)
-OpenGLStoredXm (OGLSXm, OGLSQt_FALLBACK)
-OpenGLImmediateX (OGLIX, OGLIQt_FALLBACK, OGLIXm_FALLBACK)
-OpenGLStoredX (OGLSX, OGLSQt_FALLBACK, OGLSXm_FALLBACK)
+OpenGLImmediateXm (OGLIXm, OGLI)
+OpenGLStoredXm (OGLSXm, OGL, OGLS)
+OpenGLImmediateX (OGLIX, OGLIXm_FALLBACK)
+OpenGLStoredX (OGLSX, OGLSXm_FALLBACK)
 RayTracerX (RayTracerX)
 
 Registering model factories...
@@ -97,60 +91,60 @@ theBox : (0,0,0.08)
  buildBhabha cross section 0
 G4PolarizedPEEffectCrossSection() init
 
-pol-phot:   for  gamma    SubType= 12  BuildTable= 0
+pol-phot:  for gamma SubType=12 BuildTable=0
       ===== EM models for the G4Region  DefaultRegionForTheWorld ======
-Polarized-PhotoElectric :  Emin=        0 eV    Emax=      100 TeV   AngularGenSauterGavrila
+Polarized-PhotoElectric : Emin=    0 eV  Emax=  100 TeV  SauterGavrila
 
-pol-compt:   for  gamma    SubType= 13  BuildTable= 1
-      Lambda table from 100 eV  to 1 MeV, 7 bins per decade, spline: 1
+pol-compt:  for gamma SubType=13 BuildTable=1
+      Lambda table from 100 eV  to 1 MeV, 7 bins/decade, spline: 1
       LambdaPrime table from 1 MeV to 100 TeV in 56 bins 
       ===== EM models for the G4Region  DefaultRegionForTheWorld ======
-   Polarized-Compton :  Emin=        0 eV    Emax=      100 TeV
+   Polarized-Compton : Emin=    0 eV  Emax=  100 TeV
 
-pol-conv:   for  gamma    SubType= 14  BuildTable= 1
-      Lambda table from 1.022 MeV to 100 TeV, 18 bins per decade, spline: 1
+pol-conv:  for gamma SubType=14 BuildTable=1
+      Lambda table from 1.022 MeV to 100 TeV, 18 bins/decade, spline: 1
       ===== EM models for the G4Region  DefaultRegionForTheWorld ======
-             polConv :  Emin=        0 eV    Emax=      100 TeV   AngularGenUrban
+             polConv : Emin=    0 eV  Emax=  100 TeV  ModifiedTsai
 
-msc:   for e-    SubType= 10
-      RangeFactor= 0.04, stepLimitType: 1, latDisplacement: 1
+msc:  for e-  SubType= 10
+      RangeFactor= 0.04, stepLimType: 1, latDisp: 1
       ===== EM models for the G4Region  DefaultRegionForTheWorld ======
-            UrbanMsc :  Emin=        0 eV    Emax=      100 TeV  Table with 84 bins Emin=    100 eV    Emax=    100 TeV
+            UrbanMsc : Emin=    0 eV  Emax=  100 TeV Nbins=84 100 eV  - 100 TeV
 
-pol-eIoni:   for  e-    SubType= 2
+pol-eIoni:  for e-  SubType=2
       dE/dx and range tables from 100 eV  to 100 TeV in 84 bins
-      Lambda tables from threshold to 100 TeV, 7 bins per decade, spline: 1
-      finalRange(mm)= 1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      Lambda tables from threshold to 100 TeV, 7 bins/decade, spline: 1
+      StepFunction=(0.2, 1 mm), integ: 1, fluct: 1, linLossLim= 0.01
       ===== EM models for the G4Region  DefaultRegionForTheWorld ======
-PolarizedMollerBhabha :  Emin=        0 eV    Emax=      100 TeV
+PolarizedMollerBhabha : Emin=    0 eV  Emax=  100 TeV
 
-pol-eBrem:   for  e-    SubType= 3
+pol-eBrem:  for e-  SubType=3
       dE/dx and range tables from 100 eV  to 100 TeV in 84 bins
-      Lambda tables from threshold to 100 TeV, 7 bins per decade, spline: 1
+      Lambda tables from threshold to 100 TeV, 7 bins/decade, spline: 1
       ===== EM models for the G4Region  DefaultRegionForTheWorld ======
-             PolBrem :  Emin=        0 eV    Emax=      100 TeV   DipBustGen
+             PolBrem : Emin=    0 eV  Emax=  100 TeV  ModifiedTsai
 
-msc:   for e+    SubType= 10
-      RangeFactor= 0.04, stepLimitType: 1, latDisplacement: 1
+msc:  for e+  SubType= 10
+      RangeFactor= 0.04, stepLimType: 1, latDisp: 1
       ===== EM models for the G4Region  DefaultRegionForTheWorld ======
-            UrbanMsc :  Emin=        0 eV    Emax=      100 TeV  Table with 84 bins Emin=    100 eV    Emax=    100 TeV
+            UrbanMsc : Emin=    0 eV  Emax=  100 TeV Nbins=84 100 eV  - 100 TeV
 
-pol-eIoni:   for  e+    SubType= 2
+pol-eIoni:  for e+  SubType=2
       dE/dx and range tables from 100 eV  to 100 TeV in 84 bins
-      Lambda tables from threshold to 100 TeV, 7 bins per decade, spline: 1
-      finalRange(mm)= 1, dRoverRange= 0.2, integral: 1, fluct: 1, linLossLimit= 0.01
+      Lambda tables from threshold to 100 TeV, 7 bins/decade, spline: 1
+      StepFunction=(0.2, 1 mm), integ: 1, fluct: 1, linLossLim= 0.01
       ===== EM models for the G4Region  DefaultRegionForTheWorld ======
-PolarizedMollerBhabha :  Emin=        0 eV    Emax=      100 TeV
+PolarizedMollerBhabha : Emin=    0 eV  Emax=  100 TeV
 
-pol-eBrem:   for  e+    SubType= 3
+pol-eBrem:  for e+  SubType=3
       dE/dx and range tables from 100 eV  to 100 TeV in 84 bins
-      Lambda tables from threshold to 100 TeV, 7 bins per decade, spline: 1
+      Lambda tables from threshold to 100 TeV, 7 bins/decade, spline: 1
       ===== EM models for the G4Region  DefaultRegionForTheWorld ======
-             PolBrem :  Emin=        0 eV    Emax=      100 TeV   DipBustGen
+             PolBrem : Emin=    0 eV  Emax=  100 TeV  ModifiedTsai
 
-pol-annihil:   for  e+, integral: 1     SubType= 5  BuildTable= 0
+pol-annihil:  for e+, integral:1  SubType=5 BuildTable=0
       ===== EM models for the G4Region  DefaultRegionForTheWorld ======
-Polarized-Annihilation :  Emin=        0 eV    Emax=      100 TeV
+Polarized-Annihilation : Emin=    0 eV  Emax=  100 TeV
 
 Region <DefaultRegionForTheWorld> --  -- appears in <World> world volume
  This region is in the mass world.
@@ -195,39 +189,39 @@ G4GeometryManager::ReportVoxelStats -- Voxel Statistics
  Run terminated.
 Run Summary
   Number of events processed : 10000
-  User=0.120000s Real=0.114188s Sys=0.000000s
+  User=0.080000s Real=0.076494s Sys=0.000000s
 
  The run consists of 10000 gamma of 10 MeV through 1.75 mm  of G4_Fe (density: 7.874 g/cm3 )
 
  Process calls frequency --->
-	Transportation = 31108
-	pol-compt = 266
-	pol-eBrem = 314
-	msc = 1661
+	Transportation = 31082
+	pol-compt = 247
+	pol-eBrem = 323
+	msc = 1679
+	pol-eIoni = 586
 	pol-phot = 163
-	pol-eIoni = 608
-	pol-conv = 216
-	pol-annihil = 57
+	pol-conv = 218
+	pol-annihil = 53
  Gamma: 
-Mean Number per Event :1.0048
-Mean Energy :9.619 MeV +- 1.8101 MeV
-Mean Polarization :-0.96774 +- 0.1742
+Mean Number per Event :1.0036
+Mean Energy :9.6289 MeV +- 1.7861 MeV
+Mean Polarization :-0.96894 +- 0.17095
  Electron: 
-Mean Number per Event :0.0341
-Mean Energy :5.1588 MeV +- 2.4665 MeV
-Mean Polarization :-0.72985 +- 0.28105
+Mean Number per Event :0.0334
+Mean Energy :5.1865 MeV +- 2.5002 MeV
+Mean Polarization :-0.72122 +- 0.29799
  Positron: 
-Mean Number per Event :0.0165
-Mean Energy :3.9099 MeV +- 2.0871 MeV
-Mean Polarization :-0.5533 +- 0.34208
+Mean Number per Event :0.0171
+Mean Energy :4.222 MeV +- 2.0916 MeV
+Mean Polarization :-0.58519 +- 0.34217
 ... write Root file : pol01.root - done
 ... close Root file : pol01.root - done
 
 --------- Ranlux engine status ---------
  Initial seed = 9876
- float_seed_table[] = 0.0502205 0.384011 0.595831 0.0937672 0.341182 0.0396019 0.856368 0.682676 0.983136 0.278483 0.699152 0.67165 0.216605 0.415161 0.498622 0.706824 0.241166 0.474092 0.797581 0.0664896 0.161372 0.516629 0.736871 0.469066 
- i_lag = 4, j_lag = 14
- carry = 0, count24 = 10
+ float_seed_table[] = 0.447712 0.436395 0.886232 0.255581 0.600726 0.0189115 0.0503416 0.905132 0.101332 0.164019 0.0210468 0.500174 0.642739 0.0313798 0.439157 0.600835 0.209763 0.199544 0.574678 0.157237 0.253073 0.285816 0.183246 0.132469 
+ i_lag = 14, j_lag = 0
+ carry = 5.96046e-08, count24 = 2
  luxury = 3 nskip = 199
 ----------------------------------------
 #
@@ -250,11 +244,11 @@ Pool ID '7G4Event', size : 0.000961 MB
 Pool ID '15G4PrimaryVertex', size : 0.000961 MB
 Pool ID '17G4PrimaryParticle', size : 0.000961 MB
 Pool ID '17G4DynamicParticle', size : 0.00192 MB
-Pool ID '7G4Track', size : 0.00288 MB
+Pool ID '7G4Track', size : 0.00385 MB
 Pool ID '18G4TouchableHistory', size : 0.000961 MB
 Pool ID '15G4CountedObjectIvE', size : 0.000961 MB
 Number of memory pools allocated: 9 of which, static: 0
-Dynamic pools deleted: 9 / Total memory freed: 0.018 MB
+Dynamic pools deleted: 9 / Total memory freed: 0.019 MB
 ============================================================
 G4Allocator objects are deleted.
 UImanager deleted.

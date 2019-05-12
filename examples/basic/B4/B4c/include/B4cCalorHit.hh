@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: B4cCalorHit.hh 100946 2016-11-03 11:28:08Z gcosmo $
 //
 /// \file B4cCalorHit.hh
 /// \brief Definition of the B4cCalorHit class
@@ -52,7 +51,7 @@ class B4cCalorHit : public G4VHit
 
     // operators
     const B4cCalorHit& operator=(const B4cCalorHit&);
-    G4int operator==(const B4cCalorHit&) const;
+    G4bool operator==(const B4cCalorHit&) const;
 
     inline void* operator new(size_t);
     inline void  operator delete(void*);

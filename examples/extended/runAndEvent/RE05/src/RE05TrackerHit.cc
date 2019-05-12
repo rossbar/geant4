@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: RE05TrackerHit.cc 98775 2016-08-09 14:30:39Z gcosmo $
 //
 /// \file RE05/src/RE05TrackerHit.cc
 /// \brief Implementation of the RE05TrackerHit class
@@ -74,9 +73,9 @@ const RE05TrackerHit& RE05TrackerHit::operator=(const RE05TrackerHit &right)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4int RE05TrackerHit::operator==(const RE05TrackerHit &right) const
+G4bool RE05TrackerHit::operator==(const RE05TrackerHit &right) const
 {
-  return (this==&right) ? 1 : 0;
+  return (this==&right) ? true : false;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

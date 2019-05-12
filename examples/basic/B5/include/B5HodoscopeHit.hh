@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: B5HodoscopeHit.hh 101036 2016-11-04 09:00:23Z gcosmo $
 //
 /// \file B5HodoscopeHit.hh
 /// \brief Definition of the B5HodoscopeHit class
@@ -57,7 +56,7 @@ class B5HodoscopeHit : public G4VHit
     virtual ~B5HodoscopeHit();
 
     const B5HodoscopeHit& operator=(const B5HodoscopeHit &right);
-    int operator==(const B5HodoscopeHit &right) const;
+    G4bool operator==(const B5HodoscopeHit &right) const;
     
     inline void *operator new(size_t);
     inline void operator delete(void*aHit);

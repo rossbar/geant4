@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4UIcommandTree.hh 99838 2016-10-07 10:06:37Z gcosmo $
 //
 
 #ifndef G4UIcommandTree_h
@@ -47,8 +46,8 @@ class G4UIcommandTree
       G4UIcommandTree();
       G4UIcommandTree(const char * thePathName);
       ~G4UIcommandTree();
-      G4int operator==(const G4UIcommandTree &right) const;
-      G4int operator!=(const G4UIcommandTree &right) const;
+      G4bool operator==(const G4UIcommandTree &right) const;
+      G4bool operator!=(const G4UIcommandTree &right) const;
 
   public:
       void AddNewCommand(G4UIcommand * newCommand, G4bool workerThreadOnly=false);

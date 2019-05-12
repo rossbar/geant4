@@ -1,10 +1,6 @@
 
-        ############################################
-        !!! WARNING - FPE detection is activated !!!
-        ############################################
-
 **************************************************************
- Geant4 version Name: geant4-10-05-beta-01    (29-June-2018)
+ Geant4 version Name: geant4-10-05-patch-01    (17-April-2019)
                        Copyright : Geant4 Collaboration
                       References : NIM A 506 (2003), 250-303
                                  : IEEE-TNS 53 (2006), 270-278
@@ -28,12 +24,10 @@ RayTracer (RayTracer)
 VRML1FILE (VRML1FILE)
 VRML2FILE (VRML2FILE)
 gMocrenFile (gMocrenFile)
-OpenGLImmediateQt (OGLIQt, OGLI)
-OpenGLStoredQt (OGLSQt, OGL, OGLS)
-OpenGLImmediateXm (OGLIXm, OGLIQt_FALLBACK)
-OpenGLStoredXm (OGLSXm, OGLSQt_FALLBACK)
-OpenGLImmediateX (OGLIX, OGLIQt_FALLBACK, OGLIXm_FALLBACK)
-OpenGLStoredX (OGLSX, OGLSQt_FALLBACK, OGLSXm_FALLBACK)
+OpenGLImmediateXm (OGLIXm, OGLI)
+OpenGLStoredXm (OGLSXm, OGL, OGLS)
+OpenGLImmediateX (OGLIX, OGLIXm_FALLBACK)
+OpenGLStoredX (OGLSX, OGLSXm_FALLBACK)
 RayTracerX (RayTracerX)
 
 Registering model factories...
@@ -158,7 +152,7 @@ G4GeometryManager::ReportVoxelStats -- Voxel Statistics
  Run terminated.
 Run Summary
   Number of events processed : 10
-  User=0.000000s Real=0.001967s Sys=0.000000s
+  User=0.000000s Real=0.001659s Sys=0.000000s
 WARNING: 10 events have been kept for refreshing and/or reviewing.
 
   "/vis/reviewKeptEvents" to review them one by one.
@@ -183,14 +177,14 @@ Pool ID '7G4Event', size : 0.000961 MB
 Pool ID '15G4PrimaryVertex', size : 0.000961 MB
 Pool ID '17G4PrimaryParticle', size : 0.00192 MB
 Pool ID '17G4DynamicParticle', size : 0.000961 MB
-Pool ID '7G4Track', size : 0.000961 MB
+Pool ID '7G4Track', size : 0.00192 MB
 Pool ID '18G4TouchableHistory', size : 0.000961 MB
 Pool ID '15G4CountedObjectIvE', size : 0.000961 MB
 Pool ID '18G4SmoothTrajectory', size : 0.00192 MB
-Pool ID '23G4SmoothTrajectoryPoint', size : 0.00288 MB
+Pool ID '23G4SmoothTrajectoryPoint', size : 0.00385 MB
 Pool ID '21G4TrajectoryContainer', size : 0.000961 MB
 Number of memory pools allocated: 12 of which, static: 0
-Dynamic pools deleted: 12 / Total memory freed: 0.022 MB
+Dynamic pools deleted: 12 / Total memory freed: 0.024 MB
 ============================================================
 G4Allocator objects are deleted.
 UImanager deleted.

@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4Event.cc 110273 2018-05-17 14:43:43Z gcosmo $
 //
 
 // G4Event
@@ -88,12 +87,12 @@ G4Event::~G4Event()
   delete randomNumberStatusForProcessing;
 }
 
-G4int G4Event::operator==(const G4Event &right) const
+G4bool G4Event::operator==(const G4Event &right) const
 {
   return ( eventID == right.eventID );
 }
 
-G4int G4Event::operator!=(const G4Event &right) const
+G4bool G4Event::operator!=(const G4Event &right) const
 {
   return ( eventID != right.eventID );
 }

@@ -27,7 +27,6 @@
 /// \brief Definition of the Par01CalorimeterHit class
 //
 //
-// $Id: Par01CalorimeterHit.hh 100936 2016-11-03 11:07:41Z gcosmo $
 //
 
 #ifndef Par01CalorimeterHit_h
@@ -50,7 +49,7 @@ public:
   ~Par01CalorimeterHit();
   Par01CalorimeterHit(const Par01CalorimeterHit &right);
   const Par01CalorimeterHit& operator=(const Par01CalorimeterHit &right);
-  G4int operator==(const Par01CalorimeterHit &right) const;
+  G4bool operator==(const Par01CalorimeterHit &right) const;
   
   
   inline void *operator new(size_t);

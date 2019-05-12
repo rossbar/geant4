@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4NistManager.hh 105820 2017-08-22 08:03:26Z gcosmo $
 //
 // -------------------------------------------------------------------
 //
@@ -72,6 +71,7 @@
 #include "G4Material.hh"
 #include "G4NistElementBuilder.hh"
 #include "G4NistMaterialBuilder.hh"
+#include "G4ICRU90StoppingData.hh"
 #include "G4Pow.hh"
 #include "G4Threading.hh"
 
@@ -197,6 +197,7 @@ public:
 					  G4double pres = CLHEP::STP_Pressure);  
 
   // Construct a G4Material from scratch by atome count
+  // temperature and pressure should be consistent with the density
   // 
   inline G4Material* ConstructNewMaterial(
 			          const G4String& name,
@@ -209,6 +210,7 @@ public:
 				  G4double  pressure = CLHEP::STP_Pressure); 
 
   // Construct a G4Material from scratch by fraction mass
+  // temperature and pressure should be consistent with the density
   // 
   inline G4Material* ConstructNewMaterial(
 				  const G4String& name,
@@ -277,6 +279,8 @@ public:
   inline G4double GetLOGZ(G4int Z) const;
   inline G4double GetLOGAMU(G4int Z) const;
 
+  G4ICRU90StoppingData* GetICRU90StoppingData();
+
 private:
 
   explicit G4NistManager();
@@ -293,6 +297,8 @@ private:
   size_t   nMaterials;
   
   G4int    verbose;
+
+  G4ICRU90StoppingData*    fICRU90;
 
   G4NistElementBuilder*    elmBuilder;
   G4NistMaterialBuilder*   matBuilder;

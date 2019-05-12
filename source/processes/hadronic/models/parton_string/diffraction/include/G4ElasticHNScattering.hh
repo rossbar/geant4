@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4ElasticHNScattering.hh 100828 2016-11-02 15:25:59Z gcosmo $
 
 #ifndef G4ElasticHNScattering_h
 #define G4ElasticHNScattering_h 1
@@ -42,7 +41,7 @@
 #include "globals.hh"
 #include "G4FTFParameters.hh"
 #include "G4ThreeVector.hh"
-#include "G4SampleResonance.hh"   // Uzhi 2014
+#include "G4SampleResonance.hh"
 
 class G4VSplitableHadron;
 class G4ExcitedString;
@@ -59,8 +58,8 @@ class G4ElasticHNScattering {
     G4ElasticHNScattering( const G4ElasticHNScattering& right );
     G4ThreeVector GaussianPt( G4double AveragePt2, G4double maxPtSquare ) const;
     const G4ElasticHNScattering& operator=( const G4ElasticHNScattering& right );
-    int operator==( const G4ElasticHNScattering& right ) const;
-    int operator!=( const G4ElasticHNScattering& right ) const;
+    G4bool operator==( const G4ElasticHNScattering& right ) const;
+    G4bool operator!=( const G4ElasticHNScattering& right ) const;
 };
 
 #endif

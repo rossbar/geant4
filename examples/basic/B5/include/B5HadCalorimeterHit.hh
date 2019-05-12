@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: B5HadCalorimeterHit.hh 101036 2016-11-04 09:00:23Z gcosmo $
 //
 /// \file B5HadCalorimeterHit.hh
 /// \brief Definition of the B5HadCalorimeterHit class
@@ -58,7 +57,7 @@ class B5HadCalorimeterHit : public G4VHit
     virtual ~B5HadCalorimeterHit();
 
     const B5HadCalorimeterHit& operator=(const B5HadCalorimeterHit &right);
-    int operator==(const B5HadCalorimeterHit &right) const;
+    G4bool operator==(const B5HadCalorimeterHit &right) const;
     
     inline void *operator new(size_t);
     inline void operator delete(void *aHit);

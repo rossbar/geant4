@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: G4mplIonisationWithDeltaModel.hh 97391 2016-06-02 10:08:45Z gcosmo $
 //
 // -------------------------------------------------------------------
 //
@@ -61,7 +60,7 @@ class G4mplIonisationWithDeltaModel : public G4VEmModel, public G4VEmFluctuation
 public:
 
   explicit G4mplIonisationWithDeltaModel(G4double mCharge, 
-				const G4String& nam = "mplIonisationWithDelta");
+                                const G4String& nam = "mplIonisationWithDelta");
 
   virtual ~G4mplIonisationWithDeltaModel();
 
@@ -69,9 +68,9 @@ public:
                           const G4DataVector&) override;
 
   virtual G4double ComputeDEDXPerVolume(const G4Material*,
-					const G4ParticleDefinition*,
-					G4double kineticEnergy,
-					G4double cutEnergy) override;
+                                        const G4ParticleDefinition*,
+                                        G4double kineticEnergy,
+                                        G4double cutEnergy) override;
 
   virtual G4double ComputeCrossSectionPerElectron(
                                  const G4ParticleDefinition*,
@@ -87,10 +86,10 @@ public:
                                  G4double maxEnergy) override;
 
   virtual void SampleSecondaries(std::vector<G4DynamicParticle*>*,
-				 const G4MaterialCutsCouple*,
-				 const G4DynamicParticle*,
-				 G4double tmin,
-				 G4double maxEnergy) override;
+                                 const G4MaterialCutsCouple*,
+                                 const G4DynamicParticle*,
+                                 G4double tmin,
+                                 G4double maxEnergy) override;
 
 
   virtual G4double SampleFluctuations(const G4MaterialCutsCouple*,
@@ -104,6 +103,9 @@ public:
                               G4double tmax,
                               G4double length) override;
 
+  virtual G4double MinEnergyCut(const G4ParticleDefinition*,
+                                const G4MaterialCutsCouple* couple) override;
+
   void SetParticle(const G4ParticleDefinition* p);
 
 protected:
@@ -113,7 +115,8 @@ protected:
 
 private:
 
-  G4double ComputeDEDXAhlen(const G4Material* material, G4double bg2, G4double cut);
+  G4double ComputeDEDXAhlen(const G4Material* material, G4double bg2, 
+                            G4double cut);
 
   // hide assignment operator
   G4mplIonisationWithDeltaModel & 
@@ -121,7 +124,7 @@ private:
   G4mplIonisationWithDeltaModel(const  G4mplIonisationWithDeltaModel&) = delete;
 
   const G4ParticleDefinition* monopole;
-  G4ParticleDefinition* theElectron;
+  G4ParticleDefinition*       theElectron;
   G4ParticleChangeForLoss*    fParticleChange;
 
   G4double mass;
@@ -137,7 +140,6 @@ private:
   G4double pi_hbarc2_over_mc2;
 
   static std::vector<G4double>* dedx0;
-
 };
 
 #endif

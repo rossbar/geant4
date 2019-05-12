@@ -24,12 +24,10 @@
 // ********************************************************************
 //
 //
-// $Id: G4ScoringBox.cc 99154 2016-09-07 08:06:30Z gcosmo $
 //
 
 #include "G4ScoringBox.hh"
 
-#include "G4SystemOfUnits.hh"
 #include "G4Box.hh"
 #include "G4LogicalVolume.hh"
 #include "G4VPhysicalVolume.hh"
@@ -47,6 +45,8 @@
 
 #include "G4ScoringManager.hh"
 #include "G4StatDouble.hh"
+
+#include "G4SystemOfUnits.hh"
 
 #include <map>
 #include <fstream>

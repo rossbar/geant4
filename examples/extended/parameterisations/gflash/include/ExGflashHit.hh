@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: ExGflashHit.hh 94396 2015-11-13 13:37:16Z gcosmo $
 //
 /// \file parameterisations/gflash/include/ExGflashHit.hh
 /// \brief Definition of the ExGflashHit class
@@ -48,7 +47,7 @@ class ExGflashHit : public G4VHit
       ~ExGflashHit();
       ExGflashHit(const ExGflashHit &right);
       const ExGflashHit& operator=(const ExGflashHit &right);
-      int operator==(const ExGflashHit &right) const;
+      G4bool operator==(const ExGflashHit &right) const;
 
       inline void *operator new(size_t);
       inline void operator delete(void *aHit);

@@ -23,7 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: RE05TrackerHit.hh 98775 2016-08-09 14:30:39Z gcosmo $
 //
 /// \file RE05/include/RE05TrackerHit.hh
 /// \brief Definition of the RE05TrackerHit class
@@ -48,7 +47,7 @@ class RE05TrackerHit : public G4VHit
       virtual ~RE05TrackerHit();
       RE05TrackerHit(const RE05TrackerHit &right);
       const RE05TrackerHit& operator=(const RE05TrackerHit &right);
-      G4int operator==(const RE05TrackerHit &right) const;
+      G4bool operator==(const RE05TrackerHit &right) const;
 
       inline void *operator new(size_t);
       inline void operator delete(void *aHit);

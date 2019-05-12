@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4ScoreQuantityMessenger.cc 108220 2018-01-19 15:06:38Z gcosmo $
 //
 // ---------------------------------------------------------------------
 // Modifications
@@ -85,6 +84,7 @@
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4UIcmdWith3VectorAndUnit.hh"
 #include "G4UIcommand.hh"
+#include "G4UIparameter.hh"
 #include "G4Tokenizer.hh"
 #include "G4UnitsTable.hh"
 
@@ -129,7 +129,7 @@ void G4ScoreQuantityMessenger::FilterCommands()
   G4String smax = DtoS(DBL_MAX);
   param->SetDefaultValue(smax);
   param = new G4UIparameter("unit",'s',true);
-  param->SetDefaultValue("keV");
+  param->SetDefaultUnit("keV");
   fkinECmd->SetParameter(param);
   //
   fparticleCmd = new G4UIcommand("/score/filter/particle",this);
@@ -162,7 +162,7 @@ void G4ScoreQuantityMessenger::FilterCommands()
   param->SetDefaultValue(smax);
   fparticleKinECmd->SetParameter(param);
   param = new G4UIparameter("unit",'s',true);
-  param->SetDefaultValue("keV");
+  param->SetDefaultUnit("keV");
   fparticleKinECmd->SetParameter(param);
   param = new G4UIparameter("particlelist",'s',false);
   param->SetDefaultValue("");

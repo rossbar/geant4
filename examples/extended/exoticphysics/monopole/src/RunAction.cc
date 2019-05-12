@@ -26,7 +26,6 @@
 /// \file exoticphysics/monopole/src/RunAction.cc
 /// \brief Implementation of the RunAction class
 //
-// $Id: RunAction.cc 107534 2017-11-21 13:13:36Z gcosmo $
 // 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -41,6 +40,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4ios.hh"
 #include "Randomize.hh"
+#include "G4ProductionCutsTable.hh"
 
 #include "G4EmCalculator.hh"
 
@@ -50,7 +50,7 @@ RunAction::RunAction(DetectorConstruction* det, PrimaryGeneratorAction* kin)
   :fDetector(det),fKinematic(kin)
 {
   fMessenger = new RunActionMessenger(this);
-  fBinLength = 5 * CLHEP::mm; 
+  fBinLength = 5 * CLHEP::mm;
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();  
   analysisManager->SetFileName("monopole");
   analysisManager->SetVerboseLevel(1);
@@ -79,6 +79,9 @@ G4Run* RunAction::GenerateRun()
 
 void RunAction::BeginOfRunAction(const G4Run* aRun)
 {
+  // Dump production cuts
+  G4ProductionCutsTable::GetProductionCutsTable()->DumpCouples();
+
   G4cout << "### Run " << aRun->GetRunID() << " start." << G4endl;
   //histograms
   //        
@@ -124,10 +127,18 @@ void RunAction::Book()
   // Create histograms
   analysisManager->CreateH1("h1","Edep (MeV/mm) along absorber (mm)", 
                             nbBins, 0, length);
-  analysisManager->CreateH1("h2","DEDX (MeV/mm) of proton", 100, -3., 7.);
-  analysisManager->CreateH1("h3","DEDX (MeV/mm) of monopole", 100, -3., 7.);
+  analysisManager->CreateH1("h2","Total DEDX (MeV/mm) of proton",100,-3.,7.);
+  analysisManager->CreateH1("h3","Total DEDX (MeV/mm) of monopole",100,-3., 7.);
   analysisManager->CreateH1("h4","Range(mm) of proton", 100, -3., 7., "mm");
   analysisManager->CreateH1("h5","Range(mm) of monopole", 100, -3., 7., "mm");
+  analysisManager->CreateH1("h6","Restricted DEDX (MeV/mm) of proton",
+                            100,-3.,7.);
+  analysisManager->CreateH1("h7","Restricted DEDX (MeV/mm) of monopole",
+                            100,-3., 7.);
+  analysisManager->CreateH1("h8","Delta-electron x-section (1/mm) of proton", 
+                            100, -3., 7., "mm");
+  analysisManager->CreateH1("h9","Delta-electron x-section (1/mm) of monopole", 
+                            100, -3., 7., "mm");
   analysisManager->OpenFile(); 
 }
 

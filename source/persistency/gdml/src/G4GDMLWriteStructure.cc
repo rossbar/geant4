@@ -24,7 +24,6 @@
 // ********************************************************************
 //
 //
-// $Id: G4GDMLWriteStructure.cc 108895 2018-03-15 10:27:25Z gcosmo $
 //
 // class G4GDMLWriteStructure Implementation
 //
@@ -239,10 +238,11 @@ BorderSurfaceCache(const G4LogicalBorderSurface* const bsurf)
 
    // Generate the new element for border-surface
    //
+   const G4String& bsname = GenerateName(bsurf->GetName(), bsurf);
+   const G4String& psname = GenerateName(psurf->GetName(), psurf);
    xercesc::DOMElement* borderElement = NewElement("bordersurface");
-   borderElement->setAttributeNode(NewAttribute("name", bsurf->GetName()));
-   borderElement->setAttributeNode(NewAttribute("surfaceproperty",
-                                                psurf->GetName()));
+   borderElement->setAttributeNode(NewAttribute("name", bsname));
+   borderElement->setAttributeNode(NewAttribute("surfaceproperty", psname));
 
    const G4String volumeref1 = GenerateName(bsurf->GetVolume1()->GetName(),
                                             bsurf->GetVolume1());
@@ -280,10 +280,11 @@ SkinSurfaceCache(const G4LogicalSkinSurface* const ssurf)
 
    // Generate the new element for border-surface
    //
+   const G4String& ssname = GenerateName(ssurf->GetName(), ssurf);
+   const G4String& psname = GenerateName(psurf->GetName(), psurf);
    xercesc::DOMElement* skinElement = NewElement("skinsurface");
-   skinElement->setAttributeNode(NewAttribute("name", ssurf->GetName()));
-   skinElement->setAttributeNode(NewAttribute("surfaceproperty",
-                                              psurf->GetName()));
+   skinElement->setAttributeNode(NewAttribute("name", ssname));
+   skinElement->setAttributeNode(NewAttribute("surfaceproperty", psname));
 
    const G4String volumeref = GenerateName(ssurf->GetLogicalVolume()->GetName(),
                                            ssurf->GetLogicalVolume());
@@ -352,8 +353,9 @@ G4GDMLWriteStructure::GetBorderSurface(const G4VPhysicalVolume* const pvol)
     for (pos = btable->begin(); pos != btable->end(); pos++)
     {
       if (pvol == (*pos)->GetVolume1())  // just the first in the couple 
-      {                                  // is enough
-        surf = *pos; break;
+      {                                  // could be enough?
+        surf = *pos; // break;
+        BorderSurfaceCache(surf);
       }
     }
   }
@@ -541,7 +543,8 @@ TraverseVolumeTree(const G4LogicalVolume* const volumePtr, const G4int depth)
                    
 	       PhysvolWrite(volumeElement,physvol,invR*P*daughterR,ModuleName);
 	     }
-       BorderSurfaceCache(GetBorderSurface(physvol));
+       //       BorderSurfaceCache(GetBorderSurface(physvol));
+       GetBorderSurface(physvol);
      }
 
    if (cexport)  { ExportEnergyCuts(volumePtr); }
